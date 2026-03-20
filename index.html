@@ -1,0 +1,2395 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Алгебра 7 класс - Исправленная проверка</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --primary: #4361ee;
+            --secondary: #3a0ca3;
+            --accent: #f72585;
+            --light: #f8f9fa;
+            --dark: #212529;
+            --success: #4cc9f0;
+            --warning: #f8961e;
+            --danger: #e63946;
+            --gray: #6c757d;
+            --light-gray: #e9ecef;
+            --alloy: #2a9d8f;
+            --equation: #e76f51;
+            --fsu: #e9c46a;
+            --polynomial: #9c89b8;
+        }
+
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            color: var(--dark);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        .navbar {
+            background: white;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            font-size: 2rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            transition: all 0.3s;
+        }
+
+        .nav-links a:hover {
+            background: var(--light-gray);
+            color: var(--primary);
+        }
+
+        .nav-links a.active {
+            background: var(--primary);
+            color: white;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .hero {
+            text-align: center;
+            padding: 4rem 2rem;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            border-radius: 20px;
+            margin-bottom: 3rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto 2rem;
+            opacity: 0.9;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+        }
+
+        .btn {
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #d63384;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(248, 37, 133, 0.4);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+
+        .btn-secondary:hover {
+            background: white;
+            color: var(--primary);
+            transform: translateY(-3px);
+        }
+
+        .btn-success {
+            background: var(--success);
+            color: white;
+        }
+
+        .btn-success:hover {
+            background: #3a9fb6;
+            transform: translateY(-3px);
+        }
+
+        .main-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .sidebar {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+        }
+
+        .sidebar h3 {
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 3px solid var(--accent);
+        }
+
+        .chapters {
+            list-style: none;
+        }
+
+        .chapters li {
+            margin-bottom: 0.5rem;
+        }
+
+        .chapters a {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 1rem;
+            text-decoration: none;
+            color: var(--dark);
+            border-radius: 10px;
+            transition: all 0.3s;
+        }
+
+        .chapters a:hover {
+            background: var(--light-gray);
+            color: var(--primary);
+            transform: translateX(5px);
+        }
+
+        .chapters a.active {
+            background: var(--primary);
+            color: white;
+        }
+
+        .chapter-icon {
+            font-size: 1.2rem;
+        }
+
+        .content-section {
+            display: none;
+            background: white;
+            border-radius: 15px;
+            padding: 2.5rem;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            min-height: 500px;
+        }
+
+        .content-section.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .content-header {
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid var(--light-gray);
+        }
+
+        .content-header h2 {
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .meta-info {
+            display: flex;
+            gap: 1rem;
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .theory-content {
+            line-height: 1.8;
+        }
+
+        .theory-content h3 {
+            color: var(--secondary);
+            margin: 1.5rem 0 1rem;
+        }
+
+        .theory-content h4 {
+            color: var(--primary);
+            margin: 1rem 0 0.5rem;
+            font-size: 1.1rem;
+        }
+
+        .theory-content p {
+            margin-bottom: 1rem;
+        }
+
+        .formula {
+            background: var(--light-gray);
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin: 1.5rem 0;
+            font-family: 'Courier New', monospace;
+            font-size: 1.1rem;
+            text-align: center;
+            border-left: 4px solid var(--primary);
+        }
+
+        .formula.small {
+            padding: 1rem;
+            font-size: 1rem;
+            margin: 0.5rem 0;
+            text-align: left;
+        }
+
+        .example {
+            background: #e8f4f8;
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin: 1.5rem 0;
+            border-left: 4px solid var(--success);
+        }
+
+        .example h4 {
+            color: var(--success);
+            margin-bottom: 0.5rem;
+        }
+
+        .tip {
+            background: #fff3cd;
+            padding: 1rem;
+            border-radius: 10px;
+            margin: 1rem 0;
+            border-left: 4px solid var(--warning);
+        }
+
+        .trainer-controls {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .trainer-select {
+            padding: 0.8rem 1.5rem;
+            border: 2px solid var(--light-gray);
+            border-radius: 10px;
+            font-size: 1rem;
+            background: white;
+            color: var(--dark);
+            min-width: 200px;
+        }
+
+        .trainer-select:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .task-area {
+            background: var(--light);
+            padding: 2rem;
+            border-radius: 15px;
+            margin-bottom: 2rem;
+            border: 2px solid var(--light-gray);
+        }
+
+        .task-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .task-number {
+            background: var(--primary);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-weight: 600;
+        }
+
+        .difficulty {
+            background: var(--warning);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+        }
+
+        .task-type-badge {
+            background: var(--success);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+        }
+
+        .task-status {
+            background: var(--gray);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+        }
+
+        .task-status.answered {
+            background: var(--success);
+        }
+
+        .task-text {
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.8;
+        }
+
+        .given-data {
+            background: #e8f4f8;
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin: 1.5rem 0;
+            border-left: 4px solid var(--alloy);
+        }
+
+        .given-data h4 {
+            color: var(--alloy);
+            margin-bottom: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .given-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 0.5rem;
+            padding: 0.5rem;
+            background: rgba(255,255,255,0.7);
+            border-radius: 8px;
+        }
+
+        .given-label {
+            font-weight: 600;
+            min-width: 120px;
+            color: var(--secondary);
+        }
+
+        .given-value {
+            color: var(--dark);
+        }
+
+        .math-expression {
+            font-family: 'Courier New', monospace;
+            font-size: 1.3rem;
+            text-align: center;
+            padding: 1rem;
+            background: white;
+            border-radius: 10px;
+            margin: 1rem 0;
+            border: 1px solid var(--light-gray);
+        }
+
+        .answer-area {
+            margin-top: 2rem;
+        }
+
+        .answer-input {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid var(--light-gray);
+            border-radius: 10px;
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+            font-family: 'Courier New', monospace;
+        }
+
+        .answer-input:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .answer-input:disabled {
+            background: var(--light-gray);
+            cursor: not-allowed;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .btn-check {
+            background: var(--success);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-check:hover:not(:disabled) {
+            background: #3a9fb6;
+            transform: translateY(-2px);
+        }
+
+        .btn-check:disabled {
+            background: var(--gray);
+            cursor: not-allowed;
+            opacity: 0.7;
+        }
+
+        .btn-solution {
+            background: var(--warning);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-solution:hover:not(:disabled) {
+            background: #d87c0e;
+            transform: translateY(-2px);
+        }
+
+        .btn-solution:disabled {
+            background: var(--gray);
+            cursor: not-allowed;
+            opacity: 0.7;
+        }
+
+        .btn-new {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-new:hover {
+            background: var(--secondary);
+            transform: translateY(-2px);
+        }
+
+        .result {
+            margin-top: 1.5rem;
+            padding: 1.5rem;
+            border-radius: 10px;
+            display: none;
+        }
+
+        .result.correct {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+            display: block;
+        }
+
+        .result.incorrect {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+            display: block;
+        }
+
+        .result.warning {
+            background: #fff3cd;
+            color: #856404;
+            border: 1px solid #ffeeba;
+            display: block;
+        }
+
+        .solution-area {
+            margin-top: 2rem;
+            padding: 2rem;
+            background: #e8f4f8;
+            border-radius: 10px;
+            border-left: 4px solid var(--success);
+            display: none;
+        }
+
+        .solution-area.show {
+            display: block;
+            animation: fadeIn 0.5s;
+        }
+
+        .solution-steps {
+            margin-top: 1rem;
+            padding-left: 1.5rem;
+        }
+
+        .solution-steps li {
+            margin-bottom: 0.8rem;
+        }
+
+        .progress-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            margin-top: 2rem;
+            padding: 1.5rem;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: var(--gray);
+            margin-top: 0.5rem;
+        }
+
+        .footer {
+            background: var(--dark);
+            color: white;
+            padding: 3rem 2rem;
+            margin-top: 4rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 3rem;
+        }
+
+        .footer-section h4 {
+            margin-bottom: 1rem;
+            color: var(--light);
+        }
+
+        .footer-section p {
+            opacity: 0.8;
+            line-height: 1.6;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+            opacity: 0.8;
+            transition: opacity 0.3s;
+        }
+
+        .footer-links a:hover {
+            opacity: 1;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+            100% { transform: scale(1); }
+        }
+
+        .theory-nav {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            overflow-x: auto;
+            padding-bottom: 1rem;
+        }
+
+        .theory-tab {
+            padding: 0.8rem 1.5rem;
+            background: var(--light-gray);
+            border: none;
+            border-radius: 10px;
+            font-weight: 600;
+            color: var(--dark);
+            cursor: pointer;
+            transition: all 0.3s;
+            white-space: nowrap;
+        }
+
+        .theory-tab:hover {
+            background: #dee2e6;
+        }
+
+        .theory-tab.active {
+            background: var(--primary);
+            color: white;
+        }
+
+        .theory-section {
+            display: none;
+        }
+
+        .theory-section.active {
+            display: block;
+            animation: fadeIn 0.5s;
+        }
+
+        .quiz-section {
+            background: #f8f9fa;
+            padding: 2rem;
+            border-radius: 15px;
+            margin: 2rem 0;
+            border: 2px dashed var(--primary);
+        }
+
+        .quiz-question {
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+            font-weight: 600;
+        }
+
+        .quiz-options {
+            display: grid;
+            gap: 1rem;
+        }
+
+        .quiz-option {
+            padding: 1rem;
+            background: white;
+            border: 2px solid var(--light-gray);
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .quiz-option:hover {
+            border-color: var(--primary);
+            transform: translateX(5px);
+        }
+
+        .quiz-option.correct {
+            background: #d4edda;
+            border-color: #28a745;
+            color: #155724;
+        }
+
+        .quiz-option.incorrect {
+            background: #f8d7da;
+            border-color: #dc3545;
+            color: #721c24;
+        }
+
+        .input-help {
+            background: #e8f4f8;
+            padding: 1rem;
+            border-radius: 10px;
+            margin: 1rem 0;
+            border-left: 4px solid var(--success);
+        }
+
+        .symbol-examples {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .symbol-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 0.5rem;
+            background: white;
+            border-radius: 5px;
+        }
+
+        .symbol-key {
+            background: var(--light-gray);
+            padding: 0.2rem 0.5rem;
+            border-radius: 3px;
+            font-family: monospace;
+            font-weight: bold;
+        }
+
+        .quick-input-buttons {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            margin-bottom: 1rem;
+        }
+
+        .quick-btn {
+            padding: 0.5rem 1rem;
+            background: var(--light-gray);
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            cursor: pointer;
+            font-family: 'Courier New', monospace;
+        }
+
+        .quick-btn:hover {
+            background: #dee2e6;
+        }
+
+        .reset-timer {
+            background: linear-gradient(135deg, #ff6b6b, #ff8e8e);
+            color: white;
+            padding: 1rem;
+            border-radius: 10px;
+            margin-bottom: 1rem;
+            text-align: center;
+            animation: pulse 2s infinite;
+        }
+
+        .timezone-badge {
+            background: rgba(255,255,255,0.2);
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            display: inline-block;
+            font-size: 0.8rem;
+            margin-top: 0.5rem;
+        }
+
+        .hint-box {
+            background: #fff3cd;
+            padding: 1rem;
+            border-radius: 10px;
+            margin: 1rem 0;
+            border-left: 4px solid var(--warning);
+        }
+
+        @media (max-width: 992px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-content {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-container {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .nav-links {
+                gap: 1rem;
+            }
+            
+            .hero {
+                padding: 3rem 1rem;
+            }
+            
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .trainer-controls {
+                flex-direction: column;
+            }
+            
+            .trainer-select {
+                width: 100%;
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 1rem;
+            }
+            
+            .content-section {
+                padding: 1.5rem;
+            }
+            
+            .progress-stats {
+                grid-template-columns: 1fr;
+            }
+            
+            .task-header {
+                flex-direction: column;
+                gap: 1rem;
+                align-items: flex-start;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Навигация -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="#home" class="logo">
+                <span class="logo-icon">🧮</span>
+                <span>Алгебра 7 класс</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="#home" class="nav-link active" onclick="showSection('home')">Главная</a></li>
+                <li><a href="#theory" class="nav-link" onclick="showSection('theory')">Теория</a></li>
+                <li><a href="#trainer" class="nav-link" onclick="showSection('trainer')">Тренажер</a></li>
+                <li><a href="#about" class="nav-link" onclick="showSection('about')">О проекте</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Главная страница -->
+    <div class="content-section active" id="home">
+        <div class="hero">
+            <h1>4 темы по алгебре 7 класс</h1>
+            <p>Формулы сокращенного умножения, сплавы и металлы, уравнения, многочлены. Изучайте с помощью теории и практических тренажеров.</p>
+            <div class="cta-buttons">
+                <a href="#theory" class="btn btn-primary" onclick="showSection('theory')">
+                    <span>📚</span> Изучить теорию
+                </a>
+                <a href="#trainer" class="btn btn-secondary" onclick="showSection('trainer')">
+                    <span>🎯</span> Начать тренировку
+                </a>
+            </div>
+        </div>
+
+        <div class="container">
+            <div style="text-align: center; margin-bottom: 3rem;">
+                <h2 style="color: var(--primary); margin-bottom: 1rem;">4 основные темы</h2>
+                <p style="max-width: 800px; margin: 0 auto; color: var(--gray);">Все необходимые материалы по основным темам 7 класса в одном месте</p>
+            </div>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; margin-bottom: 3rem;">
+                <div style="background: white; padding: 2rem; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.08);">
+                    <div style="font-size: 2.5rem; margin-bottom: 1rem; color: var(--primary);">(a±b)²</div>
+                    <h3 style="margin-bottom: 1rem; color: var(--secondary);">Формулы сокращенного умножения</h3>
+                    <p>Квадрат суммы и разности, разность квадратов, куб суммы и разности</p>
+                </div>
+                
+                <div style="background: white; padding: 2rem; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.08);">
+                    <div style="font-size: 2.5rem; margin-bottom: 1rem; color: var(--accent);">⚗️</div>
+                    <h3 style="margin-bottom: 1rem; color: var(--secondary);">Сплавы и металлы</h3>
+                    <p>Задачи на проценты и смеси, концентрация веществ, решение задач</p>
+                </div>
+                
+                <div style="background: white; padding: 2rem; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.08);">
+                    <div style="font-size: 2.5rem; margin-bottom: 1rem; color: var(--success);">ax=b</div>
+                    <h3 style="margin-bottom: 1rem; color: var(--secondary);">Уравнения</h3>
+                    <p>Линейные уравнения, уравнения с параметрами, текстовые задачи</p>
+                </div>
+
+                <div style="background: white; padding: 2rem; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.08);">
+                    <div style="font-size: 2.5rem; margin-bottom: 1rem; color: var(--warning);">P(x)</div>
+                    <h3 style="margin-bottom: 1rem; color: var(--secondary);">Многочлены</h3>
+                    <p>Стандартный вид, сложение и вычитание, умножение, разложение на множители</p>
+                </div>
+            </div>
+
+            <!-- Таймер сброса -->
+            <div class="reset-timer">
+                <h3>⏳ Баллы дня сбрасываются через:</h3>
+                <div id="resetTimer" style="font-size: 2rem; font-weight: bold; margin: 0.5rem 0;">--:--:--</div>
+                <div class="timezone-badge">🇷🇺 Московское время (МСК)</div>
+                <p style="font-size: 0.9rem;">Сброс происходит каждый день в 00:00 по МСК. Успейте набрать максимум!</p>
+            </div>
+
+            <div class="input-help">
+                <h4>📝 Как вводить математические выражения?</h4>
+                <p>В тренажере можно использовать разные способы ввода:</p>
+                <div class="symbol-examples">
+                    <div class="symbol-item">
+                        <span class="symbol-key">x^2</span>
+                        <span class="symbol-description">Квадрат (рекомендуется)</span>
+                    </div>
+                    <div class="symbol-item">
+                        <span class="symbol-key">x²</span>
+                        <span class="symbol-description">Символ квадрата</span>
+                    </div>
+                    <div class="symbol-item">
+                        <span class="symbol-key">(x+2)(x-3)</span>
+                        <span class="symbol-description">Произведение</span>
+                    </div>
+                    <div class="symbol-item">
+                        <span class="symbol-key">4x^2 - 9</span>
+                        <span class="symbol-description">Разность квадратов</span>
+                    </div>
+                </div>
+                <p style="margin-top: 0.5rem; font-size: 0.9rem;">Для дробных ответов используйте точку (4.5) или дробь (9/2)</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Теория -->
+    <div class="content-section" id="theory">
+        <div class="container">
+            <div class="content-header">
+                <h2>📚 Подробная теория по 4 темам</h2>
+                <div class="meta-info">
+                    <div class="meta-item"><span>📖</span> 4 основные темы</div>
+                    <div class="meta-item"><span>⏱️</span> 40+ примеров</div>
+                    <div class="meta-item"><span>🎯</span> Формулы и задачи</div>
+                </div>
+            </div>
+
+            <div class="main-content">
+                <div>
+                    <div class="theory-nav">
+                        <button class="theory-tab active" onclick="showTheoryTab('fsu')">ФСУ</button>
+                        <button class="theory-tab" onclick="showTheoryTab('alloys')">Сплавы и металлы</button>
+                        <button class="theory-tab" onclick="showTheoryTab('equations')">Уравнения</button>
+                        <button class="theory-tab" onclick="showTheoryTab('polynomials')">Многочлены</button>
+                        <button class="theory-tab" onclick="showTheoryTab('input-help')">Как вводить ответы</button>
+                    </div>
+
+                    <div class="theory-content" id="theoryContent">
+                        <div class="theory-section active" id="fsu-tab">
+                            <h3>Формулы сокращенного умножения (ФСУ)</h3>
+                            <p>Формулы сокращенного умножения позволяют упрощать алгебраические выражения, выполнять умножение многочленов быстрее и решать уравнения.</p>
+                            
+                            <h4>Основные формулы:</h4>
+                            <div class="formula small">1. Квадрат суммы: (a + b)² = a² + 2ab + b²</div>
+                            <div class="formula small">2. Квадрат разности: (a - b)² = a² - 2ab + b²</div>
+                            <div class="formula small">3. Разность квадратов: a² - b² = (a - b)(a + b)</div>
+                            <div class="formula small">4. Куб суммы: (a + b)³ = a³ + 3a²b + 3ab² + b³</div>
+                            <div class="formula small">5. Куб разности: (a - b)³ = a³ - 3a²b + 3ab² - b³</div>
+                            
+                            <div class="example">
+                                <h4>Пример 1: Раскрытие скобок</h4>
+                                <p>Раскройте скобки: (2x + 3y)²</p>
+                                <p><strong>Решение:</strong> Используем формулу квадрата суммы:</p>
+                                <p>(2x + 3y)² = (2x)² + 2·2x·3y + (3y)² = 4x² + 12xy + 9y²</p>
+                            </div>
+                            
+                            <div class="example">
+                                <h4>Пример 2: Разложение на множители</h4>
+                                <p>Разложите на множители: 25x² - 49y²</p>
+                                <p><strong>Решение:</strong> Это разность квадратов: 25x² = (5x)², 49y² = (7y)²</p>
+                                <p>25x² - 49y² = (5x - 7y)(5x + 7y)</p>
+                            </div>
+                            
+                            <div class="example">
+                                <h4>Пример 3: Разные формы ответа</h4>
+                                <p>Для выражения 4x² - 144 можно записать:</p>
+                                <p>1. <strong>Разложенная форма:</strong> (2x - 12)(2x + 12)</p>
+                                <p>2. <strong>Стандартная форма:</strong> 4x² - 144</p>
+                                <p>3. <strong>Альтернативная форма:</strong> (2x)² - 12²</p>
+                                <p class="tip">💡 Все эти формы считаются правильными!</p>
+                            </div>
+                            
+                            <div class="quiz-section">
+                                <h3>Проверь себя</h3>
+                                <div class="quiz-question">Чему равно (3x - 4y)²?</div>
+                                <div class="quiz-options">
+                                    <div class="quiz-option" onclick="checkQuizAnswer(this, '9x² - 24xy + 16y²')">9x² - 24xy + 16y²</div>
+                                    <div class="quiz-option" onclick="checkQuizAnswer(this, '9x² + 24xy + 16y²')">9x² + 24xy + 16y²</div>
+                                    <div class="quiz-option" onclick="checkQuizAnswer(this, '9x² - 12xy + 16y²')">9x² - 12xy + 16y²</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="theory-section" id="alloys-tab">
+                            <h3>Задачи на сплавы, смеси и растворы</h3>
+                            <p>Эти задачи относятся к текстовым задачам на проценты и часто встречаются в экзаменационных работах.</p>
+                            
+                            <h4>Основные понятия:</h4>
+                            <p><strong>Концентрация</strong> — процентное содержание вещества в смеси.</p>
+                            <p><strong>Масса вещества</strong> = масса смеси × концентрация / 100</p>
+                            
+                            <div class="example">
+                                <h4>Пример 1: Смешивание двух растворов</h4>
+                                <p><strong>Дано:</strong></p>
+                                <ul>
+                                    <li>Первый раствор: масса = 40 кг, концентрация = 12%</li>
+                                    <li>Второй раствор: концентрация = 20%</li>
+                                    <li>Нужно получить: концентрация = 15%</li>
+                                </ul>
+                                <p><strong>Найти:</strong> массу второго раствора</p>
+                                <p><strong>Решение:</strong> Пусть нужно добавить x кг 20% раствора.</p>
+                                <p>Составляем уравнение: 40·0.12 + x·0.20 = (40 + x)·0.15</p>
+                                <p>4.8 + 0.20x = 6 + 0.15x</p>
+                                <p>0.05x = 1.2</p>
+                                <p>x = 24 кг</p>
+                            </div>
+                            
+                            <div class="example">
+                                <h4>Пример 2: Выпаривание воды</h4>
+                                <p><strong>Дано:</strong></p>
+                                <ul>
+                                    <li>Исходный раствор: масса = 50 кг, концентрация = 8%</li>
+                                    <li>После выпаривания: концентрация = 20%</li>
+                                </ul>
+                                <p><strong>Найти:</strong> массу выпаренной воды</p>
+                                <p><strong>Решение:</strong> Масса соли постоянна: 50·0.08 = 4 кг</p>
+                                <p>После выпаривания: 4 кг соли составляют 20% раствора</p>
+                                <p>Масса нового раствора = 4 / 0.20 = 20 кг</p>
+                                <p>Выпарили воды: 50 - 20 = 30 кг</p>
+                            </div>
+                            
+                            <div class="tip">
+                                <strong>💡 Совет:</strong> В задачах на сплавы всегда определяйте, что остается постоянным (обычно масса чистого вещества или масса металла).
+                            </div>
+                        </div>
+
+                        <div class="theory-section" id="equations-tab">
+                            <h3>Линейные уравнения и их решение</h3>
+                            <p>Линейное уравнение — уравнение вида ax + b = 0, где a и b — числа, x — переменная.</p>
+                            
+                            <h4>Алгоритм решения:</h4>
+                            <ol>
+                                <li>Раскрыть скобки</li>
+                                <li>Перенести слагаемые с переменной в одну часть, числа — в другую</li>
+                                <li>Привести подобные слагаемые</li>
+                                <li>Разделить обе части на коэффициент при переменной</li>
+                            </ol>
+                            
+                            <div class="example">
+                                <h4>Пример 1: Простое уравнение</h4>
+                                <p>Решите уравнение: 5x - 12 = 3x + 4</p>
+                                <p><strong>Решение:</strong></p>
+                                <p>5x - 3x = 4 + 12</p>
+                                <p>2x = 16</p>
+                                <p>x = 8</p>
+                            </div>
+                            
+                            <div class="example">
+                                <h4>Пример 2: Уравнение со скобками</h4>
+                                <p>Решите уравнение: 3(x - 4) = 5(2x + 1) - 7</p>
+                                <p><strong>Решение:</strong></p>
+                                <p>Раскрываем скобки: 3x - 12 = 10x + 5 - 7</p>
+                                <p>3x - 12 = 10x - 2</p>
+                                <p>3x - 10x = -2 + 12</p>
+                                <p>-7x = 10</p>
+                                <p>x = -10/7 ≈ -1.43</p>
+                            </div>
+                        </div>
+
+                        <div class="theory-section" id="polynomials-tab">
+                            <h3>Многочлены и действия с ними</h3>
+                            <p><strong>Многочлен</strong> (полином) — сумма одночленов.</p>
+                            
+                            <h4>Стандартный вид многочлена:</h4>
+                            <div class="formula">
+                                Пример: 3x³ - 2x² + 5x - 7
+                            </div>
+                            
+                            <h4>Действия с многочленами:</h4>
+                            
+                            <h5>1. Сложение многочленов:</h5>
+                            <div class="example">
+                                <p>(3x² + 2x - 5) + (x² - 4x + 3) = (3+1)x² + (2-4)x + (-5+3) = 4x² - 2x - 2</p>
+                            </div>
+                            
+                            <h5>2. Вычитание многочленов:</h5>
+                            <div class="example">
+                                <p>(5x² - 3x + 2) - (2x² + x - 4) = 5x² - 3x + 2 - 2x² - x + 4 = 3x² - 4x + 6</p>
+                            </div>
+                            
+                            <h5>3. Умножение многочлена на одночлен:</h5>
+                            <div class="example">
+                                <p>3x(2x² - 4x + 5) = 3x·2x² - 3x·4x + 3x·5 = 6x³ - 12x² + 15x</p>
+                            </div>
+                            
+                            <div class="tip">
+                                <strong>💡 Запомните:</strong> При сложении и вычитании многочленов складываются/вычитаются только коэффициенты при одинаковых степенях.
+                            </div>
+                        </div>
+
+                        <div class="theory-section" id="input-help-tab">
+                            <h3>📝 Как правильно вводить ответы в тренажере</h3>
+                            
+                            <div class="input-help">
+                                <h4>🎯 Основные правила ввода:</h4>
+                                <p>Система понимает разные форматы и формы записи:</p>
+                                
+                                <div class="symbol-examples">
+                                    <div class="symbol-item">
+                                        <span class="symbol-key">x^2</span>
+                                        <span class="symbol-description">Квадрат (рекомендуется)</span>
+                                    </div>
+                                    <div class="symbol-item">
+                                        <span class="symbol-key">x²</span>
+                                        <span class="symbol-description">Символ квадрата</span>
+                                    </div>
+                                    <div class="symbol-item">
+                                        <span class="symbol-key">(a+b)(a-b)</span>
+                                        <span class="symbol-description">Произведение</span>
+                                    </div>
+                                    <div class="symbol-item">
+                                        <span class="symbol-key">9/2</span>
+                                        <span class="symbol-description">Дробь (для уравнений)</span>
+                                    </div>
+                                    <div class="symbol-item">
+                                        <span class="symbol-key">4.5</span>
+                                        <span class="symbol-description">Десятичная дробь</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="example">
+                                <h4>Пример: Разность квадратов</h4>
+                                <p><strong>Задача:</strong> Разложите на множители: 4x² - 144</p>
+                                <p><strong>Можно ввести любой из вариантов:</strong></p>
+                                <ul>
+                                    <li><code>(2x - 12)(2x + 12)</code> ✓</li>
+                                    <li><code>(2x+12)(2x-12)</code> ✓ (порядок не важен)</li>
+                                    <li><code>4x^2 - 144</code> ✓ (стандартная форма)</li>
+                                    <li><code>4x² - 144</code> ✓</li>
+                                    <li><code>(2x)^2 - 144</code> ✓</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="example">
+                                <h4>Пример: Квадрат суммы</h4>
+                                <p><strong>Задача:</strong> Раскройте скобки: (x + 5)²</p>
+                                <p><strong>Можно ввести:</strong></p>
+                                <ul>
+                                    <li><code>x^2 + 10x + 25</code> ✓</li>
+                                    <li><code>x² + 10x + 25</code> ✓</li>
+                                    <li><code>1x^2 + 10x + 25</code> ✓</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="example">
+                                <h4>Пример: Уравнение</h4>
+                                <p><strong>Задача:</strong> Решите уравнение: 3(x - 2) = 1(x + 3)</p>
+                                <p><strong>Можно ввести:</strong></p>
+                                <ul>
+                                    <li><code>4.5</code> ✓ (десятичная дробь)</li>
+                                    <li><code>9/2</code> ✓ (обыкновенная дробь)</li>
+                                    <li><code>4,5</code> ✓ (с запятой)</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="tip" style="background: #d4edda; border-color: #28a745;">
+                                <strong>✅ Важно:</strong> Система понимает разные формы записи! Главное — правильное математическое выражение.
+                            </div>
+                            
+                            <h4>Кнопки быстрого ввода (в тренажере):</h4>
+                            <div class="quick-input-buttons">
+                                <button class="quick-btn" onclick="insertSymbol('x²')">x²</button>
+                                <button class="quick-btn" onclick="insertSymbol('x³')">x³</button>
+                                <button class="quick-btn" onclick="insertSymbol('^')">^</button>
+                                <button class="quick-btn" onclick="insertSymbol('(')">(</button>
+                                <button class="quick-btn" onclick="insertSymbol(')')">)</button>
+                                <button class="quick-btn" onclick="insertSymbol('+')">+</button>
+                                <button class="quick-btn" onclick="insertSymbol('-')">-</button>
+                                <button class="quick-btn" onclick="insertSymbol('*')">*</button>
+                                <button class="quick-btn" onclick="insertSymbol('/')">/</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="sidebar">
+                    <h3>📋 Темы для изучения</h3>
+                    <ul class="chapters">
+                        <li><a href="#" class="chapter-link active" onclick="showTheoryTab('fsu')"><span class="chapter-icon">(a±b)²</span> ФСУ</a></li>
+                        <li><a href="#" class="chapter-link" onclick="showTheoryTab('alloys')"><span class="chapter-icon">⚗️</span> Сплавы и металлы</a></li>
+                        <li><a href="#" class="chapter-link" onclick="showTheoryTab('equations')"><span class="chapter-icon">ax=b</span> Уравнения</a></li>
+                        <li><a href="#" class="chapter-link" onclick="showTheoryTab('polynomials')"><span class="chapter-icon">P(x)</span> Многочлены</a></li>
+                        <li><a href="#" class="chapter-link" onclick="showTheoryTab('input-help')"><span class="chapter-icon">📝</span> Как вводить ответы</a></li>
+                    </ul>
+                    
+                    <div class="reset-timer" style="margin-top: 2rem;">
+                        <h4>⏳ До сброса прогресса:</h4>
+                        <div id="theoryTimer" style="font-size: 1.5rem; font-weight: bold; margin: 0.5rem 0;">--:--:--</div>
+                        <div class="timezone-badge">🇷🇺 МСК</div>
+                        <p style="font-size: 0.8rem;">Все баллы и статистика обнулятся</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Тренажер -->
+    <div class="content-section" id="trainer">
+        <div class="container">
+            <div class="content-header">
+                <h2>🎯 Тренажер по 4 темам</h2>
+                <div class="meta-info">
+                    <div class="meta-item"><span>📊</span> Уровень: Средний</div>
+                    <div class="meta-item"><span>✅</span> Решено: <span id="solvedCount">0</span> задач</div>
+                    <div class="meta-item"><span>⭐</span> Баллы: <span id="totalScore">0</span></div>
+                </div>
+            </div>
+
+            <div class="main-content">
+                <div>
+                    <!-- Таймер сброса в тренажере -->
+                    <div class="reset-timer" style="margin-bottom: 1.5rem;">
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <div>
+                                <h4 style="margin: 0;">⏳ Баллы дня сбрасываются через:</h4>
+                                <div id="trainerTimer" style="font-size: 1.8rem; font-weight: bold; margin: 0.5rem 0;">--:--:--</div>
+                                <div class="timezone-badge">🇷🇺 МСК</div>
+                            </div>
+                            <div style="text-align: right;">
+                                <div style="font-size: 0.9rem;">Сегодня: <strong id="todayScoreTrainer">0</strong> баллов</div>
+                                <div style="font-size: 0.9rem;">Серия: <strong id="currentStreak">0</strong></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="input-help" style="margin-bottom: 1.5rem;">
+                        <h4>📝 Как вводить ответы?</h4>
+                        <p>Система понимает разные форматы: <strong>(2x-12)(2x+12)</strong> или <strong>4x^2 - 144</strong></p>
+                        <p>Для уравнений можно использовать <strong>4.5</strong> или <strong>9/2</strong></p>
+                        <div class="quick-input-buttons" id="quickInputButtons">
+                            <button class="quick-btn" onclick="insertSymbol('x²')">x²</button>
+                            <button class="quick-btn" onclick="insertSymbol('x³')">x³</button>
+                            <button class="quick-btn" onclick="insertSymbol('^')">^</button>
+                            <button class="quick-btn" onclick="insertSymbol('(')">(</button>
+                            <button class="quick-btn" onclick="insertSymbol(')')">)</button>
+                            <button class="quick-btn" onclick="insertSymbol('+')">+</button>
+                            <button class="quick-btn" onclick="insertSymbol('-')">-</button>
+                            <button class="quick-btn" onclick="insertSymbol('*')">*</button>
+                            <button class="quick-btn" onclick="insertSymbol('/')">/</button>
+                        </div>
+                    </div>
+
+                    <div class="trainer-controls">
+                        <select class="trainer-select" id="topicSelect">
+                            <option value="fsu">Формулы сокращенного умножения</option>
+                            <option value="alloys">Сплавы и металлы</option>
+                            <option value="equations">Уравнения</option>
+                            <option value="polynomials">Многочлены</option>
+                        </select>
+                        
+                        <select class="trainer-select" id="difficultySelect">
+                            <option value="easy">Легкий уровень</option>
+                            <option value="medium" selected>Средний уровень</option>
+                            <option value="hard">Сложный уровень</option>
+                        </select>
+                        
+                        <button class="btn-new" onclick="generateTask()">Новая задача</button>
+                    </div>
+
+                    <div class="task-area">
+                        <div class="task-header">
+                            <div class="task-number">Задача #<span id="taskNumber">1</span></div>
+                            <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                                <div class="difficulty" id="taskDifficulty">Средняя</div>
+                                <div class="task-type-badge" id="taskType">Стандартная</div>
+                                <div class="task-status" id="taskStatus">Не решена</div>
+                            </div>
+                        </div>
+                        
+                        <div class="task-text" id="taskText">
+                            Нажмите кнопку "Новая задача" для начала
+                        </div>
+                        
+                        <!-- Блок "Дано" для задач на сплавы -->
+                        <div id="givenDataContainer" style="display: none;"></div>
+                        
+                        <div class="math-expression" id="mathExpression">
+                            Ожидание задачи...
+                        </div>
+                        
+                        <div class="answer-area">
+                            <input type="text" class="answer-input" id="answerInput" placeholder="Введите ответ (например: 4.5 или 9/2)" onkeypress="handleEnter(event)">
+                            
+                            <div class="action-buttons">
+                                <button class="btn-check" onclick="checkAnswer()">Проверить ответ</button>
+                                <button class="btn-solution" onclick="showSolution()" disabled>Показать решение</button>
+                            </div>
+                            
+                            <div class="result" id="resultMessage"></div>
+                            
+                            <div class="solution-area" id="solutionArea">
+                                <h3>Решение:</h3>
+                                <div id="solutionText"></div>
+                                <ol class="solution-steps" id="solutionSteps"></ol>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="progress-stats">
+                        <div class="stat-item">
+                            <div class="stat-value" id="totalTasks">0</div>
+                            <div class="stat-label">Всего задач</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value" id="dailyScore">0</div>
+                            <div class="stat-label">Баллы дня</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value" id="streak">0</div>
+                            <div class="stat-label">Серия правильных</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="sidebar">
+                    <h3>📊 Ваша статистика</h3>
+                    <div style="margin-bottom: 2rem;">
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                            <span>ФСУ:</span>
+                            <span><strong id="fsuStat">0</strong> из 20</span>
+                        </div>
+                        <div style="height: 10px; background: var(--light-gray); border-radius: 5px; overflow: hidden;">
+                            <div style="width: 0%; height: 100%; background: var(--primary);" id="fsuProgress"></div>
+                        </div>
+                    </div>
+                    
+                    <div style="margin-bottom: 2rem;">
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                            <span>Сплавы:</span>
+                            <span><strong id="alloysStat">0</strong> из 15</span>
+                        </div>
+                        <div style="height: 10px; background: var(--light-gray); border-radius: 5px; overflow: hidden;">
+                            <div style="width: 0%; height: 100%; background: var(--success);" id="alloysProgress"></div>
+                        </div>
+                    </div>
+                    
+                    <div style="margin-bottom: 2rem;">
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                            <span>Уравнения:</span>
+                            <span><strong id="equationsStat">0</strong> из 25</span>
+                        </div>
+                        <div style="height: 10px; background: var(--light-gray); border-radius: 5px; overflow: hidden;">
+                            <div style="width: 0%; height: 100%; background: var(--accent);" id="equationsProgress"></div>
+                        </div>
+                    </div>
+
+                    <div style="margin-bottom: 2rem;">
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                            <span>Многочлены:</span>
+                            <span><strong id="polynomialsStat">0</strong> из 20</span>
+                        </div>
+                        <div style="height: 10px; background: var(--light-gray); border-radius: 5px; overflow: hidden;">
+                            <div style="width: 0%; height: 100%; background: var(--warning);" id="polynomialsProgress"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="reset-timer" style="margin-top: 2rem;">
+                        <h4>⏳ Сброс через:</h4>
+                        <div id="sidebarTimer" style="font-size: 1.5rem; font-weight: bold; margin: 0.5rem 0;">--:--:--</div>
+                        <div class="timezone-badge">🇷🇺 МСК</div>
+                        <p style="font-size: 0.8rem;">Все баллы и прогресс обнулятся</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- О проекте -->
+    <div class="content-section" id="about">
+        <div class="container">
+            <div class="content-header">
+                <h2>О проекте</h2>
+            </div>
+            
+            <div style="max-width: 800px; margin: 0 auto;">
+                <div style="background: white; padding: 2rem; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.08);">
+                    <h3 style="color: var(--primary); margin-bottom: 1rem;">Алгебра 7 класс - 4 темы</h3>
+                    
+                    <p style="margin-bottom: 1.5rem;">Этот сайт создан для помощи в изучении 4 основных тем алгебры 7 класса: формулы сокращенного умножения, задачи на сплавы и металлы, уравнения и многочлены.</p>
+                    
+                    <h4 style="color: var(--secondary); margin: 1.5rem 0 1rem;">Особенности системы:</h4>
+                    <div style="background: #e8f4f8; padding: 1rem; border-radius: 10px;">
+                        <p><strong>🎯 Ежедневный сброс прогресса в 00:00 по МСК:</strong></p>
+                        <ul>
+                            <li>Все баллы обнуляются каждый день ровно в 00:00 по московскому времени</li>
+                            <li>Статистика по темам сбрасывается</li>
+                            <li>Серия правильных ответов обнуляется</li>
+                        </ul>
+                        <p style="margin-top: 0.5rem; font-style: italic;">Это мотивирует заниматься регулярно и каждый день стремиться к новым результатам!</p>
+                    </div>
+                    
+                    <h4 style="color: var(--secondary); margin: 1.5rem 0 1rem;">Система баллов:</h4>
+                    <div style="background: linear-gradient(135deg, #e8f4f8, #d4edda); padding: 1rem; border-radius: 10px;">
+                        <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 0.5rem;">
+                            <span style="font-size: 1.5rem;">🎯</span>
+                            <strong>Баллы дня (сбрасываются каждый день в 00:00 МСК)</strong>
+                        </div>
+                        <ul>
+                            <li>Легкие задачи: +3 балла</li>
+                            <li>Средние задачи: +5 баллов</li>
+                            <li>Сложные задачи: +8 баллов</li>
+                            <li>Серия правильных ответов: x2 баллы</li>
+                        </ul>
+                        <p style="margin-top: 1rem; font-size: 0.9rem; color: var(--gray);">* Старайтесь набрать как можно больше баллов за день!</p>
+                    </div>
+                    
+                    <h4 style="color: var(--secondary); margin: 1.5rem 0 1rem;">🎲 Разнообразие задач:</h4>
+                    <div style="background: linear-gradient(135deg, #fff3cd, #f8d7da); padding: 1rem; border-radius: 10px;">
+                        <p>Каждая тема содержит множество различных типов задач:</p>
+                        <ul>
+                            <li><strong>ФСУ:</strong> раскрытие скобок, разложение на множители, обратные задачи, кубы</li>
+                            <li><strong>Сплавы:</strong> смешивание, выпаривание, добавление, нахождение концентрации, задачи с тремя компонентами</li>
+                            <li><strong>Уравнения:</strong> простые, со скобками, с дробями, с параметрами, текстовые</li>
+                            <li><strong>Многочлены:</strong> сложение, вычитание, умножение, деление со скобками</li>
+                        </ul>
+                        <p style="margin-top: 0.5rem;">💡 <strong>Более 50 уникальных вариантов задач!</strong></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Футер -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>Алгебра 7 класс</h4>
+                <p>ФСУ, сплавы и металлы, уравнения, многочлены. Изучайте с удовольствием!</p>
+            </div>
+            
+            <div class="footer-section">
+                <h4>Быстрые ссылки</h4>
+                <ul class="footer-links">
+                    <li><a href="#theory" onclick="showSection('theory')">Теория</a></li>
+                    <li><a href="#trainer" onclick="showSection('trainer')">Тренажер</a></li>
+                    <li><a href="#about" onclick="showSection('about')">О проекте</a></li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+    // ==================== ПЕРЕМЕННЫЕ И СОСТОЯНИЕ ====================
+    let currentSection = 'home';
+    let currentTheoryTab = 'fsu';
+    let currentTaskData = null;
+    let resetTimerInterval = null;
+    let taskAnswered = false; // Флаг, была ли уже проверена текущая задача
+    
+    // Статистика (сбрасывается каждый день в 00:00 по МСК)
+    let stats = {
+        totalTasks: 0,
+        correctAnswers: 0,
+        streak: 0,
+        byTopic: {
+            fsu: { solved: 0, total: 20 },
+            alloys: { solved: 0, total: 15 },
+            equations: { solved: 0, total: 25 },
+            polynomials: { solved: 0, total: 20 }
+        },
+        score: 0,
+        lastResetDate: null
+    };
+    
+    // ==================== СИСТЕМА СБРОСА ПО МОСКОВСКОМУ ВРЕМЕНИ ====================
+    
+    function getMoscowDate() {
+        const now = new Date();
+        const moscowTime = new Date(now.getTime() + (3 * 60 * 60 * 1000));
+        return moscowTime.toISOString().split('T')[0];
+    }
+    
+    function getTimeToReset() {
+        const now = new Date();
+        const utcHours = now.getUTCHours();
+        
+        let targetUTCHours = 21;
+        
+        const nextReset = new Date(Date.UTC(
+            now.getUTCFullYear(),
+            now.getUTCMonth(),
+            now.getUTCDate(),
+            targetUTCHours,
+            0,
+            0,
+            0
+        ));
+        
+        if (utcHours >= targetUTCHours) {
+            nextReset.setUTCDate(nextReset.getUTCDate() + 1);
+        }
+        
+        const timeToReset = nextReset - now;
+        return timeToReset;
+    }
+    
+    function initializeStats() {
+        const savedStats = localStorage.getItem('math4_stats');
+        const savedResetDate = localStorage.getItem('math4_reset_date');
+        const currentMoscowDate = getMoscowDate();
+        
+        if (!savedResetDate || savedResetDate !== currentMoscowDate) {
+            resetStats(currentMoscowDate);
+        } else if (savedStats) {
+            stats = JSON.parse(savedStats);
+            stats.lastResetDate = savedResetDate;
+        }
+        
+        startResetTimer();
+    }
+    
+    function resetStats(resetDate = null) {
+        const moscowDate = resetDate || getMoscowDate();
+        
+        stats = {
+            totalTasks: 0,
+            correctAnswers: 0,
+            streak: 0,
+            byTopic: {
+                fsu: { solved: 0, total: 20 },
+                alloys: { solved: 0, total: 15 },
+                equations: { solved: 0, total: 25 },
+                polynomials: { solved: 0, total: 20 }
+            },
+            score: 0,
+            lastResetDate: moscowDate
+        };
+        
+        localStorage.setItem('math4_reset_date', moscowDate);
+        saveStats();
+        updateStatsDisplay();
+        
+        if (!resetDate) {
+            showResetNotification();
+        }
+    }
+    
+    function showResetNotification() {
+        const notification = document.createElement('div');
+        notification.style.cssText = `
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: linear-gradient(135deg, #ff6b6b, #ff8e8e);
+            color: white;
+            padding: 1rem 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            z-index: 3000;
+            animation: fadeIn 0.5s ease;
+            max-width: 300px;
+        `;
+        
+        notification.innerHTML = `
+            <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 5px;">
+                <span style="font-size: 1.5rem;">🔄</span>
+                <strong>Новый день по МСК!</strong>
+            </div>
+            <p style="margin: 0; font-size: 0.9rem;">Наступило 00:00 по московскому времени. Все баллы и статистика обнулены. Начните новый день!</p>
+        `;
+        
+        document.body.appendChild(notification);
+        
+        setTimeout(() => {
+            notification.style.animation = 'fadeIn 0.5s ease reverse';
+            setTimeout(() => notification.remove(), 500);
+        }, 5000);
+    }
+    
+    function startResetTimer() {
+        if (resetTimerInterval) {
+            clearInterval(resetTimerInterval);
+        }
+        
+        function updateTimer() {
+            const timeToReset = getTimeToReset();
+            
+            if (timeToReset <= 1000) {
+                const currentMoscowDate = getMoscowDate();
+                if (stats.lastResetDate !== currentMoscowDate) {
+                    resetStats(currentMoscowDate);
+                }
+            }
+            
+            const hours = Math.floor(timeToReset / (1000 * 60 * 60));
+            const minutes = Math.floor((timeToReset % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((timeToReset % (1000 * 60)) / 1000);
+            
+            const timeString = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+            
+            const timers = ['resetTimer', 'theoryTimer', 'trainerTimer', 'sidebarTimer'];
+            timers.forEach(id => {
+                const element = document.getElementById(id);
+                if (element) {
+                    element.textContent = timeString;
+                }
+            });
+        }
+        
+        updateTimer();
+        resetTimerInterval = setInterval(updateTimer, 1000);
+    }
+    
+    function saveStats() {
+        localStorage.setItem('math4_stats', JSON.stringify(stats));
+    }
+    
+    // ==================== НАВИГАЦИЯ ====================
+    
+    function showSection(sectionId) {
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.classList.remove('active');
+        });
+        
+        document.querySelectorAll(`.nav-link[href="#${sectionId}"]`).forEach(link => {
+            link.classList.add('active');
+        });
+        
+        document.querySelectorAll('.content-section').forEach(section => {
+            section.classList.remove('active');
+        });
+        
+        document.getElementById(sectionId).classList.add('active');
+        currentSection = sectionId;
+        
+        if (sectionId === 'trainer') {
+            updateStatsDisplay();
+            if (!currentTaskData) {
+                generateTask();
+            }
+        }
+    }
+    
+    function showTheoryTab(tabId) {
+        event.preventDefault();
+        
+        document.querySelectorAll('.theory-tab').forEach(tab => {
+            tab.classList.remove('active');
+        });
+        event.target.classList.add('active');
+        
+        document.querySelectorAll('.chapter-link').forEach(link => {
+            link.classList.remove('active');
+        });
+        
+        const chapterLinks = document.querySelectorAll('.chapter-link');
+        for (let link of chapterLinks) {
+            if (link.textContent.includes(getTopicName(tabId))) {
+                link.classList.add('active');
+                break;
+            }
+        }
+        
+        document.querySelectorAll('.theory-section').forEach(section => {
+            section.classList.remove('active');
+        });
+        
+        document.getElementById(tabId + '-tab').classList.add('active');
+        currentTheoryTab = tabId;
+    }
+    
+    function getTopicName(tabId) {
+        const names = {
+            'fsu': 'ФСУ',
+            'alloys': 'Сплавы',
+            'equations': 'Уравнения',
+            'polynomials': 'Многочлены',
+            'input-help': 'Как вводить'
+        };
+        return names[tabId] || '';
+    }
+    
+    // ==================== ТЕОРИЯ - КВИЗ ====================
+    
+    function checkQuizAnswer(element, correctAnswer) {
+        const options = element.parentElement.querySelectorAll('.quiz-option');
+        options.forEach(opt => {
+            opt.classList.remove('correct', 'incorrect');
+            opt.style.cursor = 'default';
+            opt.onclick = null;
+        });
+        
+        if (element.textContent === correctAnswer) {
+            element.classList.add('correct');
+        } else {
+            element.classList.add('incorrect');
+            options.forEach(opt => {
+                if (opt.textContent === correctAnswer) {
+                    opt.classList.add('correct');
+                }
+            });
+        }
+    }
+    
+    // ==================== ТРЕНАЖЕР - ГЕНЕРАЦИЯ ЗАДАЧ ====================
+    
+    function generateTask() {
+        const topic = document.getElementById('topicSelect').value;
+        const difficulty = document.getElementById('difficultySelect').value;
+        
+        // Сбрасываем флаг ответа на задачу
+        taskAnswered = false;
+        
+        // Очищаем UI
+        document.getElementById('resultMessage').style.display = 'none';
+        document.getElementById('solutionArea').classList.remove('show');
+        document.getElementById('answerInput').value = '';
+        document.getElementById('answerInput').disabled = false;
+        document.querySelector('.btn-check').disabled = false;
+        document.querySelector('.btn-solution').disabled = true;
+        document.getElementById('taskStatus').textContent = 'Не решена';
+        document.getElementById('taskStatus').className = 'task-status';
+        
+        // Скрываем блок "Дано"
+        document.getElementById('givenDataContainer').style.display = 'none';
+        
+        let taskData;
+        
+        switch(topic) {
+            case 'fsu':
+                taskData = generateFSUTask(difficulty);
+                break;
+            case 'alloys':
+                taskData = generateAlloysTask(difficulty);
+                break;
+            case 'equations':
+                taskData = generateEquationTask(difficulty);
+                break;
+            case 'polynomials':
+                taskData = generatePolynomialTask(difficulty);
+                break;
+            default:
+                taskData = generateFSUTask(difficulty);
+        }
+        
+        document.getElementById('taskText').textContent = taskData.task;
+        document.getElementById('mathExpression').textContent = taskData.expression;
+        document.getElementById('taskNumber').textContent = stats.totalTasks + 1;
+        document.getElementById('taskDifficulty').textContent = 
+            difficulty === 'easy' ? 'Легкая' : difficulty === 'medium' ? 'Средняя' : 'Сложная';
+        document.getElementById('taskType').textContent = taskData.type || 'Стандартная';
+        
+        // Если есть данные для блока "Дано", показываем их
+        if (taskData.givenData) {
+            const givenContainer = document.getElementById('givenDataContainer');
+            givenContainer.innerHTML = taskData.givenData;
+            givenContainer.style.display = 'block';
+        }
+        
+        currentTaskData = {
+            answer: taskData.answer,
+            solution: taskData.solution,
+            topic: topic,
+            difficulty: difficulty,
+            steps: taskData.steps || [],
+            answered: false
+        };
+    }
+    
+    // ==================== ФСУ - РАЗНООБРАЗНЫЕ ЗАДАЧИ ====================
+    
+    function generateFSUTask(difficulty) {
+        const a = Math.floor(Math.random() * 5) + 1;
+        const b = Math.floor(Math.random() * 5) + 1;
+        
+        if (difficulty === 'easy') {
+            const type = Math.random() > 0.5 ? 'expand' : 'factor';
+            if (type === 'expand') {
+                return {
+                    task: 'Раскройте скобки:',
+                    expression: `(${a}x + ${b})²`,
+                    answer: `${a*a}x² + ${2*a*b}x + ${b*b}`,
+                    solution: `Используем формулу (a + b)² = a² + 2ab + b²:\n1. (${a}x)² = ${a*a}x²\n2. 2·${a}x·${b} = ${2*a*b}x\n3. ${b}² = ${b*b}\n4. Складываем: ${a*a}x² + ${2*a*b}x + ${b*b}`,
+                    type: 'Квадрат суммы',
+                    steps: [
+                        `(${a}x)² = ${a*a}x²`,
+                        `2·${a}x·${b} = ${2*a*b}x`,
+                        `${b}² = ${b*b}`,
+                        `Ответ: ${a*a}x² + ${2*a*b}x + ${b*b}`
+                    ]
+                };
+            } else {
+                const num = Math.floor(Math.random() * 8) + 3;
+                return {
+                    task: 'Разложите на множители:',
+                    expression: `${num*num}x² - ${b*b*4}`,
+                    answer: `(${num}x - ${b*2})(${num}x + ${b*2})`,
+                    solution: `Используем формулу a² - b² = (a - b)(a + b):\n1. Представляем как (${num}x)² - (${b*2})²\n2. Раскладываем: (${num}x - ${b*2})(${num}x + ${b*2})`,
+                    type: 'Разность квадратов',
+                    steps: [
+                        `(${num}x)² = ${num*num}x²`,
+                        `(${b*2})² = ${b*b*4}`,
+                        `Ответ: (${num}x - ${b*2})(${num}x + ${b*2})`
+                    ]
+                };
+            }
+        } else if (difficulty === 'medium') {
+            const type = Math.random() > 0.5 ? 'expand' : 'factor';
+            if (type === 'expand') {
+                return {
+                    task: 'Раскройте скобки:',
+                    expression: `(${a}x - ${b})²`,
+                    answer: `${a*a}x² - ${2*a*b}x + ${b*b}`,
+                    solution: `Используем формулу (a - b)² = a² - 2ab + b²:\n1. (${a}x)² = ${a*a}x²\n2. -2·${a}x·${b} = -${2*a*b}x\n3. ${b}² = ${b*b}\n4. Складываем: ${a*a}x² - ${2*a*b}x + ${b*b}`,
+                    type: 'Квадрат разности',
+                    steps: [
+                        `(${a}x)² = ${a*a}x²`,
+                        `-2·${a}x·${b} = -${2*a*b}x`,
+                        `${b}² = ${b*b}`,
+                        `Ответ: ${a*a}x² - ${2*a*b}x + ${b*b}`
+                    ]
+                };
+            } else {
+                return {
+                    task: 'Разложите на множители:',
+                    expression: `${a*a}x² - ${b*b}`,
+                    answer: `(${a}x - ${b})(${a}x + ${b})`,
+                    solution: `Используем формулу a² - b² = (a - b)(a + b):\n1. Представляем как (${a}x)² - ${b}²\n2. Раскладываем: (${a}x - ${b})(${a}x + ${b})`,
+                    type: 'Разность квадратов',
+                    steps: [
+                        `(${a}x)² = ${a*a}x²`,
+                        `${b}² = ${b*b}`,
+                        `Ответ: (${a}x - ${b})(${a}x + ${b})`
+                    ]
+                };
+            }
+        } else {
+            return {
+                task: 'Раскройте скобки:',
+                expression: `(${a}x + ${b})³`,
+                answer: `${a*a*a}x³ + ${3*a*a*b}x² + ${3*a*b*b}x + ${b*b*b}`,
+                solution: `Используем формулу (a + b)³ = a³ + 3a²b + 3ab² + b³:\n1. (${a}x)³ = ${a*a*a}x³\n2. 3·(${a}x)²·${b} = ${3*a*a*b}x²\n3. 3·${a}x·(${b})² = ${3*a*b*b}x\n4. ${b}³ = ${b*b*b}\n5. Складываем: ${a*a*a}x³ + ${3*a*a*b}x² + ${3*a*b*b}x + ${b*b*b}`,
+                type: 'Куб суммы',
+                steps: [
+                    `(${a}x)³ = ${a*a*a}x³`,
+                    `3·(${a}x)²·${b} = ${3*a*a*b}x²`,
+                    `3·${a}x·(${b})² = ${3*a*b*b}x`,
+                    `${b}³ = ${b*b*b}`,
+                    `Ответ: ${a*a*a}x³ + ${3*a*a*b}x² + ${3*a*b*b}x + ${b*b*b}`
+                ]
+            };
+        }
+    }
+    
+    // ==================== СПЛАВЫ И МЕТАЛЛЫ - РАЗНООБРАЗНЫЕ ЗАДАЧИ С "ДАНО" ====================
+    
+    function generateAlloysTask(difficulty) {
+        const m1 = Math.floor(Math.random() * 20) + 10;
+        const p1 = Math.floor(Math.random() * 15) + 5;
+        const p2 = Math.floor(Math.random() * 20) + 40;
+        const p = Math.floor((p1 + p2) / 2) + Math.floor(Math.random() * 5) - 2;
+        
+        // Убеждаемся, что p между p1 и p2
+        const finalP = Math.max(p1 + 1, Math.min(p2 - 1, p));
+        
+        const answer = Math.round(((finalP - p1) / (p2 - finalP) * m1) * 100) / 100;
+        
+        const givenData = `
+            <div class="given-data">
+                <h4>📋 Дано:</h4>
+                <div class="given-item">
+                    <span class="given-label">Первый раствор:</span>
+                    <span class="given-value">масса = ${m1} кг, концентрация = ${p1}%</span>
+                </div>
+                <div class="given-item">
+                    <span class="given-label">Второй раствор:</span>
+                    <span class="given-value">концентрация = ${p2}%</span>
+                </div>
+                <div class="given-item">
+                    <span class="given-label">Требуемый раствор:</span>
+                    <span class="given-value">концентрация = ${finalP}%</span>
+                </div>
+                <div class="given-item">
+                    <span class="given-label">Найти:</span>
+                    <span class="given-value">массу второго раствора (x кг)</span>
+                </div>
+            </div>
+        `;
+        
+        return {
+            task: 'Сколько килограммов второго раствора нужно добавить?',
+            expression: `${m1}·${p1/100} + x·${p2/100} = (${m1} + x)·${finalP/100}`,
+            answer: answer + ' кг',
+            solution: `Решение:\n1. Масса вещества в первом растворе: ${m1} · ${p1/100} = ${(m1 * p1 / 100).toFixed(2)} кг\n2. Масса вещества во втором растворе: x · ${p2/100} = ${(p2/100)}x кг\n3. Масса вещества в смеси: (${m1} + x) · ${finalP/100}\n4. Составляем уравнение: ${(m1 * p1 / 100).toFixed(2)} + ${(p2/100)}x = ${(finalP/100)}(${m1} + x)\n5. Решаем: ${(p2/100 - finalP/100).toFixed(3)}x = ${((finalP * m1 - m1 * p1) / 100).toFixed(2)}\n6. x = ${answer} кг`,
+            type: 'Смешивание растворов',
+            givenData: givenData,
+            steps: [
+                `Масса вещества в 1-м: ${m1}·${p1}% = ${(m1 * p1 / 100).toFixed(2)} кг`,
+                `Масса вещества во 2-м: x·${p2}% = ${(p2/100)}x кг`,
+                `Уравнение: ${(m1 * p1 / 100).toFixed(2)} + ${(p2/100)}x = ${(finalP/100)}(${m1} + x)`,
+                `x = ${answer} кг`
+            ]
+        };
+    }
+    
+    // ==================== УРАВНЕНИЯ - РАЗНООБРАЗНЫЕ ЗАДАЧИ С ИСПРАВЛЕННОЙ ПРОВЕРКОЙ ====================
+    
+    function generateEquationTask(difficulty) {
+        if (difficulty === 'easy') {
+            const a = Math.floor(Math.random() * 5) + 2;
+            const b = Math.floor(Math.random() * 8) + 2;
+            const c = Math.floor(Math.random() * 10) + 5;
+            
+            // Генерируем уравнение, где ответ - простая дробь
+            // Например: 3(x-2) = 1(x+3) -> x = 4.5
+            const leftCoef = a;
+            const rightCoef = 1;
+            const leftConst = a * b;
+            const rightConst = c;
+            
+            // Формируем уравнение: a(x - b) = 1(x + c)
+            const answer = (a * b + c) / (a - 1);
+            // Округляем до 2 знаков
+            const roundedAnswer = Math.round(answer * 100) / 100;
+            
+            // Представляем ответ в виде дроби, если он не целый
+            const answerDisplay = roundedAnswer.toString();
+            
+            return {
+                task: 'Решите уравнение:',
+                expression: `${a}(x - ${b}) = 1(x + ${c})`,
+                answer: answerDisplay,
+                solution: `Решение:\n1. Раскрываем скобки: ${a}x - ${a*b} = 1x + ${c}\n2. Переносим: ${a}x - 1x = ${c} + ${a*b}\n3. ${a-1}x = ${c + a*b}\n4. x = ${c + a*b} / ${a-1} = ${answerDisplay}`,
+                type: 'Уравнение со скобками',
+                steps: [
+                    `${a}x - ${a*b} = x + ${c}`,
+                    `${a}x - x = ${c} + ${a*b}`,
+                    `${a-1}x = ${c + a*b}`,
+                    `x = ${answerDisplay}`
+                ]
+            };
+        } else if (difficulty === 'medium') {
+            const a = Math.floor(Math.random() * 4) + 2;
+            const b = Math.floor(Math.random() * 5) + 1;
+            const c = Math.floor(Math.random() * 3) + 1;
+            const d = Math.floor(Math.random() * 6) + 2;
+            
+            // Уравнение вида: a(x - b) = c(x + d)
+            const answer = (a * b + c * d) / (a - c);
+            const roundedAnswer = Math.round(answer * 100) / 100;
+            
+            return {
+                task: 'Решите уравнение:',
+                expression: `${a}(x - ${b}) = ${c}(x + ${d})`,
+                answer: roundedAnswer.toString(),
+                solution: `Решение:\n1. Раскрываем скобки: ${a}x - ${a*b} = ${c}x + ${c*d}\n2. Переносим: ${a}x - ${c}x = ${c*d} + ${a*b}\n3. ${a - c}x = ${c*d + a*b}\n4. x = ${c*d + a*b} / ${a - c} = ${roundedAnswer}`,
+                type: 'Уравнение со скобками',
+                steps: [
+                    `${a}x - ${a*b} = ${c}x + ${c*d}`,
+                    `${a}x - ${c}x = ${c*d} + ${a*b}`,
+                    `${a - c}x = ${c*d + a*b}`,
+                    `x = ${roundedAnswer}`
+                ]
+            };
+        } else {
+            const a = Math.floor(Math.random() * 3) + 2;
+            const b = Math.floor(Math.random() * 4) + 1;
+            const c = Math.floor(Math.random() * 5) + 3;
+            
+            // Уравнение с дробями: (ax)/b = c
+            const answer = (b * c) / a;
+            const roundedAnswer = Math.round(answer * 100) / 100;
+            
+            return {
+                task: 'Решите уравнение (ответ округлите до сотых):',
+                expression: `(${a}x)/${b} = ${c}`,
+                answer: roundedAnswer.toString(),
+                solution: `Решение:\n1. Умножаем обе части на ${b}: ${a}x = ${c} * ${b}\n2. ${a}x = ${c * b}\n3. x = ${c * b} / ${a} = ${roundedAnswer}`,
+                type: 'Уравнение с дробями',
+                steps: [
+                    `(${a}x)/${b} = ${c}`,
+                    `${a}x = ${c} * ${b}`,
+                    `${a}x = ${c * b}`,
+                    `x = ${roundedAnswer}`
+                ]
+            };
+        }
+    }
+    
+    // ==================== МНОГОЧЛЕНЫ - РАЗНООБРАЗНЫЕ ЗАДАЧИ ====================
+    
+    function generatePolynomialTask(difficulty) {
+        const a = Math.floor(Math.random() * 3) + 1;
+        const b = Math.floor(Math.random() * 4) + 1;
+        const c = Math.floor(Math.random() * 3) + 1;
+        const d = Math.floor(Math.random() * 4) + 1;
+        
+        if (difficulty === 'easy') {
+            return {
+                task: 'Сложите многочлены:',
+                expression: `(${a}x + ${b}) + (${c}x + ${d})`,
+                answer: `${a + c}x + ${b + d}`,
+                solution: `Складываем подобные члены:\n1. ${a}x + ${c}x = ${a + c}x\n2. ${b} + ${d} = ${b + d}\nОтвет: ${a + c}x + ${b + d}`,
+                type: 'Сложение',
+                steps: [
+                    `${a}x + ${c}x = ${a + c}x`,
+                    `${b} + ${d} = ${b + d}`,
+                    `Ответ: ${a + c}x + ${b + d}`
+                ]
+            };
+        } else if (difficulty === 'medium') {
+            return {
+                task: 'Выполните вычитание:',
+                expression: `(${a}x + ${b}) - (${c}x + ${d})`,
+                answer: `${a - c}x + ${b - d}`,
+                solution: `Вычитаем подобные члены:\n1. ${a}x - ${c}x = ${a - c}x\n2. ${b} - ${d} = ${b - d}\nОтвет: ${a - c}x + ${b - d}`,
+                type: 'Вычитание',
+                steps: [
+                    `${a}x - ${c}x = ${a - c}x`,
+                    `${b} - ${d} = ${b - d}`,
+                    `Ответ: ${a - c}x + ${b - d}`
+                ]
+            };
+        } else {
+            return {
+                task: 'Умножьте многочлены:',
+                expression: `(${a}x + ${b})(${c}x + ${d})`,
+                answer: `${a*c}x² + ${a*d + b*c}x + ${b*d}`,
+                solution: `Умножаем каждый член первого многочлена на каждый член второго:\n1. ${a}x · ${c}x = ${a*c}x²\n2. ${a}x · ${d} = ${a*d}x\n3. ${b} · ${c}x = ${b*c}x\n4. ${b} · ${d} = ${b*d}\nСкладываем: ${a*c}x² + ${a*d + b*c}x + ${b*d}`,
+                type: 'Умножение',
+                steps: [
+                    `${a}x·${c}x = ${a*c}x²`,
+                    `${a}x·${d} = ${a*d}x`,
+                    `${b}·${c}x = ${b*c}x`,
+                    `${b}·${d} = ${b*d}`,
+                    `Ответ: ${a*c}x² + ${a*d + b*c}x + ${b*d}`
+                ]
+            };
+        }
+    }
+    
+    // ==================== ИСПРАВЛЕННАЯ ПРОВЕРКА ОТВЕТОВ ====================
+    
+    function checkAnswer() {
+        if (!currentTaskData) {
+            alert('Сначала сгенерируйте задачу!');
+            return;
+        }
+        
+        // Защита от повторной проверки одной задачи
+        if (taskAnswered) {
+            document.getElementById('resultMessage').textContent = 
+                '⚠️ Вы уже ответили на эту задачу! Сгенерируйте новую.';
+            document.getElementById('resultMessage').className = 'result warning';
+            document.getElementById('resultMessage').style.display = 'block';
+            return;
+        }
+        
+        const userAnswer = document.getElementById('answerInput').value.trim();
+        
+        if (userAnswer === '') {
+            document.getElementById('resultMessage').textContent = 
+                '⚠️ Введите ответ!';
+            document.getElementById('resultMessage').className = 'result warning';
+            document.getElementById('resultMessage').style.display = 'block';
+            return;
+        }
+        
+        const correctAnswer = currentTaskData.answer;
+        
+        // Улучшенная проверка с поддержкой разных форматов
+        const isCorrect = compareAnswers(userAnswer, correctAnswer, currentTaskData.topic);
+        
+        // Помечаем задачу как отвеченную
+        taskAnswered = true;
+        currentTaskData.answered = true;
+        
+        // Блокируем поле ввода и кнопку проверки
+        document.getElementById('answerInput').disabled = true;
+        document.querySelector('.btn-check').disabled = true;
+        document.getElementById('taskStatus').textContent = 'Решена';
+        document.getElementById('taskStatus').classList.add('answered');
+        
+        // Обновляем статистику
+        stats.totalTasks++;
+        
+        if (isCorrect) {
+            stats.correctAnswers++;
+            stats.streak++;
+            
+            // Расчет баллов
+            let points = 0;
+            if (currentTaskData.difficulty === 'easy') points = 3;
+            else if (currentTaskData.difficulty === 'medium') points = 5;
+            else points = 8;
+            
+            // Бонус за серию (макс x2)
+            const streakMultiplier = Math.min(stats.streak, 2);
+            const totalPoints = points * streakMultiplier;
+            stats.score += totalPoints;
+            
+            // Обновляем статистику по теме
+            if (stats.byTopic[currentTaskData.topic]) {
+                stats.byTopic[currentTaskData.topic].solved = 
+                    Math.min(stats.byTopic[currentTaskData.topic].solved + 1, 
+                            stats.byTopic[currentTaskData.topic].total);
+            }
+            
+            const streakBonus = stats.streak > 1 ? ` (x${streakMultiplier} за серию!)` : '';
+            
+            document.getElementById('resultMessage').textContent = 
+                `✅ Правильно! +${totalPoints} баллов${streakBonus}`;
+            document.getElementById('resultMessage').className = 'result correct';
+        } else {
+            stats.streak = 0;
+            document.getElementById('resultMessage').textContent = 
+                `❌ Неправильно. Правильный ответ: ${correctAnswer}`;
+            document.getElementById('resultMessage').className = 'result incorrect';
+        }
+        
+        document.getElementById('resultMessage').style.display = 'block';
+        document.querySelector('.btn-solution').disabled = false;
+        
+        saveStats();
+        updateStatsDisplay();
+    }
+    
+    // Улучшенная функция сравнения ответов
+    function compareAnswers(userAnswer, correctAnswer, topic) {
+        // Нормализация: удаляем пробелы, приводим к нижнему регистру
+        const normalizeForComparison = (str) => {
+            return str
+                .replace(/\s+/g, '')
+                .replace(/,/g, '.') // заменяем запятую на точку
+                .toLowerCase();
+        };
+        
+        const normalizedUser = normalizeForComparison(userAnswer);
+        const normalizedCorrect = normalizeForComparison(correctAnswer);
+        
+        // 1. Точное совпадение после нормализации
+        if (normalizedUser === normalizedCorrect) {
+            return true;
+        }
+        
+        // 2. Для уравнений и числовых ответов
+        if (topic === 'equations' || topic === 'alloys') {
+            // Пробуем преобразовать в числа
+            const userNum = parseFloat(normalizedUser);
+            const correctNum = parseFloat(normalizedCorrect);
+            
+            if (!isNaN(userNum) && !isNaN(correctNum)) {
+                // Проверяем с погрешностью 0.01
+                return Math.abs(userNum - correctNum) < 0.01;
+            }
+            
+            // Проверяем, не является ли ответ дробью (например, "9/2")
+            if (normalizedUser.includes('/')) {
+                const parts = normalizedUser.split('/');
+                if (parts.length === 2) {
+                    const numerator = parseFloat(parts[0]);
+                    const denominator = parseFloat(parts[1]);
+                    if (!isNaN(numerator) && !isNaN(denominator) && denominator !== 0) {
+                        const fractionValue = numerator / denominator;
+                        return Math.abs(fractionValue - correctNum) < 0.01;
+                    }
+                }
+            }
+        }
+        
+        // 3. Для ФСУ - проверяем разные формы записи
+        if (topic === 'fsu') {
+            // Удаляем все лишние символы для сравнения
+            const cleanUser = normalizedUser.replace(/[^0-9x^+()-]/g, '');
+            const cleanCorrect = normalizedCorrect.replace(/[^0-9x^+()-]/g, '');
+            
+            if (cleanUser === cleanCorrect) {
+                return true;
+            }
+            
+            // Проверяем форму (ax-b)(ax+b)
+            const factorMatch = cleanUser.match(/\((\d*)x([+-]\d+)\)\((\d*)x([+-]\d+)\)/);
+            if (factorMatch) {
+                const a1 = factorMatch[1] === '' ? 1 : parseInt(factorMatch[1]);
+                const b1 = parseInt(factorMatch[2]);
+                const a2 = factorMatch[3] === '' ? 1 : parseInt(factorMatch[3]);
+                const b2 = parseInt(factorMatch[4]);
+                
+                // Проверяем, что это разность квадратов
+                if (a1 === a2 && Math.abs(b1) === Math.abs(b2) && b1 === -b2) {
+                    const expandedForm = `${a1*a1}x^2-${b1*b1}`;
+                    if (expandedForm === cleanCorrect) {
+                        return true;
+                    }
+                }
+            }
+        }
+        
+        return false;
+    }
+    
+    function showSolution() {
+        if (!currentTaskData) return;
+        
+        document.getElementById('solutionText').textContent = currentTaskData.solution;
+        
+        if (currentTaskData.steps && currentTaskData.steps.length > 0) {
+            const stepsList = document.getElementById('solutionSteps');
+            stepsList.innerHTML = '';
+            currentTaskData.steps.forEach(step => {
+                const li = document.createElement('li');
+                li.textContent = step;
+                stepsList.appendChild(li);
+            });
+        }
+        
+        document.getElementById('solutionArea').classList.add('show');
+    }
+    
+    function insertSymbol(symbol) {
+        const input = document.getElementById('answerInput');
+        if (input.disabled) return;
+        
+        const start = input.selectionStart;
+        const end = input.selectionEnd;
+        const text = input.value;
+        
+        input.value = text.substring(0, start) + symbol + text.substring(end);
+        input.focus();
+        input.setSelectionRange(start + symbol.length, start + symbol.length);
+    }
+    
+    function handleEnter(event) {
+        if (event.key === 'Enter' && !document.querySelector('.btn-check').disabled) {
+            checkAnswer();
+        }
+    }
+    
+    function updateStatsDisplay() {
+        document.getElementById('totalTasks').textContent = stats.totalTasks;
+        document.getElementById('solvedCount').textContent = stats.correctAnswers;
+        document.getElementById('totalScore').textContent = stats.score;
+        document.getElementById('streak').textContent = stats.streak;
+        document.getElementById('todayScoreTrainer').textContent = stats.score;
+        document.getElementById('currentStreak').textContent = stats.streak;
+        document.getElementById('dailyScore').textContent = stats.score;
+        
+        document.getElementById('fsuStat').textContent = stats.byTopic.fsu.solved;
+        document.getElementById('alloysStat').textContent = stats.byTopic.alloys.solved;
+        document.getElementById('equationsStat').textContent = stats.byTopic.equations.solved;
+        document.getElementById('polynomialsStat').textContent = stats.byTopic.polynomials.solved;
+        
+        document.getElementById('fsuProgress').style.width = 
+            (stats.byTopic.fsu.solved / stats.byTopic.fsu.total * 100) + '%';
+        document.getElementById('alloysProgress').style.width = 
+            (stats.byTopic.alloys.solved / stats.byTopic.alloys.total * 100) + '%';
+        document.getElementById('equationsProgress').style.width = 
+            (stats.byTopic.equations.solved / stats.byTopic.equations.total * 100) + '%';
+        document.getElementById('polynomialsProgress').style.width = 
+            (stats.byTopic.polynomials.solved / stats.byTopic.polynomials.total * 100) + '%';
+    }
+    
+    // ==================== ИНИЦИАЛИЗАЦИЯ ====================
+    
+    document.addEventListener('DOMContentLoaded', function() {
+        initializeStats();
+        updateStatsDisplay();
+        
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const section = this.getAttribute('href').substring(1);
+                showSection(section);
+            });
+        });
+        
+        if (window.location.hash === '#trainer') {
+            setTimeout(() => {
+                showSection('trainer');
+                generateTask();
+            }, 100);
+        }
+        
+        window.addEventListener('hashchange', function() {
+            const hash = window.location.hash.substring(1);
+            if (['home', 'theory', 'trainer', 'about'].includes(hash)) {
+                showSection(hash);
+            }
+        });
+        
+        if (window.location.hash) {
+            const hash = window.location.hash.substring(1);
+            if (['home', 'theory', 'trainer', 'about'].includes(hash)) {
+                showSection(hash);
+            }
+        }
+    });
+    </script>
+</body>
+</html>
