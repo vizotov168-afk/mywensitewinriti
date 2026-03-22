@@ -1,0 +1,1786 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Алгебра 7 класс | Интерактивный тренажер</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        :root {
+            --primary: #4361ee;
+            --primary-dark: #3a0ca3;
+            --secondary: #7209b7;
+            --accent: #f72585;
+            --accent-light: #ff4d8c;
+            --light: #f8f9fa;
+            --dark: #212529;
+            --success: #4cc9f0;
+            --success-dark: #3a9fb6;
+            --warning: #f8961e;
+            --warning-dark: #e07c1a;
+            --danger: #e63946;
+            --gray: #6c757d;
+            --gray-light: #e9ecef;
+            --alloy: #2a9d8f;
+            --equation: #e76f51;
+            --fsu: #e9c46a;
+            --polynomial: #9c89b8;
+            --shadow-sm: 0 2px 8px rgba(0,0,0,0.05);
+            --shadow-md: 0 5px 20px rgba(0,0,0,0.08);
+            --shadow-lg: 0 10px 40px rgba(0,0,0,0.12);
+            --radius-sm: 10px;
+            --radius-md: 16px;
+            --radius-lg: 24px;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #e9ecef 100%);
+            color: var(--dark);
+            line-height: 1.5;
+            min-height: 100vh;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+        }
+
+        /* Скроллбар */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--gray-light);
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary);
+            border-radius: 10px;
+        }
+
+        /* Контейнеры */
+        .container {
+            width: 100%;
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* Навигация */
+        .navbar {
+            background: rgba(255,255,255,0.98);
+            backdrop-filter: blur(10px);
+            box-shadow: var(--shadow-sm);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .nav-container {
+            max-width: 1280px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 24px;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.4rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .logo:hover {
+            transform: scale(1.02);
+        }
+
+        .logo-icon {
+            font-size: 1.8rem;
+            background: none;
+            -webkit-background-clip: unset;
+            background-clip: unset;
+            color: var(--primary);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 12px;
+            list-style: none;
+            flex-wrap: wrap;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            padding: 8px 20px;
+            border-radius: 40px;
+            transition: var(--transition);
+            font-size: 0.95rem;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            background: var(--gray-light);
+            color: var(--primary);
+        }
+
+        .nav-links a.active {
+            background: var(--primary);
+            color: white;
+            box-shadow: 0 4px 12px rgba(67, 97, 238, 0.3);
+        }
+
+        /* Страницы */
+        .page {
+            display: none;
+            min-height: calc(100vh - 140px);
+            animation: fadeInUp 0.4s ease;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Заголовки страниц */
+        .page-header {
+            text-align: center;
+            margin: 32px 0 40px;
+            padding: 32px 24px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: var(--radius-lg);
+            color: white;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .page-header h1 {
+            font-size: clamp(1.8rem, 5vw, 2.5rem);
+            margin-bottom: 12px;
+        }
+
+        .page-header p {
+            font-size: clamp(0.95rem, 4vw, 1.1rem);
+            opacity: 0.95;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .page-header-icon {
+            font-size: 3rem;
+            margin-bottom: 16px;
+        }
+
+        /* Герой главной страницы */
+        .hero {
+            text-align: center;
+            padding: 60px 32px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            border-radius: var(--radius-lg);
+            margin: 32px 0 48px;
+            box-shadow: var(--shadow-lg);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            animation: pulse 8s ease infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.5; }
+            50% { transform: scale(1.1); opacity: 0.8; }
+        }
+
+        .hero h1 {
+            font-size: clamp(2rem, 6vw, 3rem);
+            margin-bottom: 16px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero p {
+            font-size: clamp(1rem, 4vw, 1.2rem);
+            max-width: 600px;
+            margin: 0 auto 28px;
+            opacity: 0.95;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Кнопки */
+        .btn {
+            padding: 12px 28px;
+            border-radius: 40px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            border: none;
+            cursor: pointer;
+            font-size: 0.95rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.3);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .btn:active::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            color: white;
+            box-shadow: 0 4px 15px rgba(247, 37, 133, 0.3);
+        }
+
+        .btn-primary:hover {
+            background: var(--accent-light);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(247, 37, 133, 0.4);
+        }
+
+        .btn-secondary {
+            background: rgba(255,255,255,0.2);
+            color: white;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.3);
+        }
+
+        .btn-secondary:hover {
+            background: white;
+            color: var(--primary);
+            transform: translateY(-2px);
+        }
+
+        .btn-success {
+            background: var(--success);
+            color: white;
+        }
+
+        .btn-success:hover {
+            background: var(--success-dark);
+            transform: translateY(-2px);
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            flex-wrap: wrap;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Карточки тем */
+        .topics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 28px;
+            margin-bottom: 48px;
+        }
+
+        .topic-card {
+            background: white;
+            padding: 28px 20px;
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-md);
+            text-align: center;
+            transition: var(--transition);
+            cursor: pointer;
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .topic-card:hover {
+            transform: translateY(-6px);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--primary);
+        }
+
+        .topic-icon {
+            font-size: 2.5rem;
+            margin-bottom: 16px;
+        }
+
+        .topic-card h3 {
+            font-size: 1.25rem;
+            margin-bottom: 10px;
+            color: var(--primary);
+        }
+
+        .topic-card p {
+            color: var(--gray);
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        /* Таймер */
+        .reset-timer {
+            background: linear-gradient(135deg, #ff6b6b, #ff8e8e);
+            color: white;
+            padding: 24px;
+            border-radius: var(--radius-md);
+            margin-bottom: 32px;
+            text-align: center;
+            box-shadow: var(--shadow-md);
+        }
+
+        .timer-value {
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin: 12px 0;
+            font-family: monospace;
+            letter-spacing: 4px;
+        }
+
+        .timezone-badge {
+            background: rgba(255,255,255,0.2);
+            padding: 6px 16px;
+            border-radius: 40px;
+            display: inline-block;
+            font-size: 0.75rem;
+        }
+
+        /* Блок подсказок */
+        .tip {
+            background: linear-gradient(135deg, #fff3cd, #ffe9b5);
+            padding: 20px 24px;
+            border-radius: var(--radius-md);
+            margin: 32px 0;
+            border-left: 4px solid var(--warning);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .tip h4 {
+            color: #856404;
+            margin-bottom: 12px;
+            font-size: 1.1rem;
+        }
+
+        .tip p {
+            margin-bottom: 6px;
+            font-size: 0.9rem;
+        }
+
+        /* Теория */
+        .theory-container {
+            background: white;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-md);
+            overflow: hidden;
+            margin-bottom: 40px;
+        }
+
+        .theory-header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            padding: 32px 28px;
+            text-align: center;
+            color: white;
+        }
+
+        .theory-header h2 {
+            font-size: clamp(1.6rem, 5vw, 2.2rem);
+            margin-bottom: 12px;
+        }
+
+        .theory-header p {
+            font-size: 1rem;
+            opacity: 0.95;
+        }
+
+        .theory-nav {
+            display: flex;
+            gap: 8px;
+            padding: 20px 24px 0 24px;
+            background: white;
+            flex-wrap: wrap;
+            border-bottom: 1px solid var(--gray-light);
+        }
+
+        .theory-tab {
+            padding: 12px 24px;
+            background: transparent;
+            border: none;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: var(--transition);
+            color: var(--gray);
+            margin-bottom: -1px;
+        }
+
+        .theory-tab:hover {
+            color: var(--primary);
+            background: var(--gray-light);
+        }
+
+        .theory-tab.active {
+            background: var(--primary);
+            color: white;
+            box-shadow: 0 4px 12px rgba(67, 97, 238, 0.2);
+        }
+
+        .theory-content {
+            padding: 28px;
+        }
+
+        .theory-section {
+            display: none;
+            animation: fadeInUp 0.3s ease;
+        }
+
+        .theory-section.active {
+            display: block;
+        }
+
+        .theory-section h3 {
+            color: var(--primary);
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+            border-left: 4px solid var(--accent);
+            padding-left: 16px;
+        }
+
+        .formula-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 16px;
+            margin: 24px 0;
+        }
+
+        .formula-card {
+            background: linear-gradient(135deg, var(--gray-light), #fff);
+            padding: 20px;
+            border-radius: var(--radius-sm);
+            text-align: center;
+            font-family: 'Courier New', monospace;
+            font-size: 1.1rem;
+            border: 1px solid rgba(0,0,0,0.05);
+            transition: var(--transition);
+        }
+
+        .formula-card:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-sm);
+            border-color: var(--primary);
+        }
+
+        .formula {
+            background: linear-gradient(135deg, var(--gray-light), #fff);
+            padding: 18px;
+            border-radius: var(--radius-sm);
+            margin: 20px 0;
+            text-align: center;
+            font-family: 'Courier New', monospace;
+            font-size: 1.2rem;
+            border-left: 4px solid var(--primary);
+        }
+
+        .example {
+            background: linear-gradient(135deg, #e8f4f8, #d4eaf0);
+            padding: 20px;
+            border-radius: var(--radius-sm);
+            margin: 24px 0;
+            border-left: 4px solid var(--success);
+        }
+
+        .example h4 {
+            color: var(--success-dark);
+            margin-bottom: 12px;
+        }
+
+        .info-box {
+            background: #e8f4f8;
+            padding: 20px;
+            border-radius: var(--radius-sm);
+            margin: 20px 0;
+            border-left: 4px solid var(--alloy);
+        }
+
+        /* Тренажер */
+        .trainer-container {
+            margin: 24px 0;
+        }
+
+        .trainer-header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            padding: 32px 28px;
+            border-radius: var(--radius-lg);
+            text-align: center;
+            color: white;
+            margin-bottom: 32px;
+            box-shadow: var(--shadow-md);
+        }
+
+        .trainer-header h2 {
+            font-size: clamp(1.6rem, 5vw, 2.2rem);
+            margin-bottom: 12px;
+        }
+
+        .trainer-header p {
+            font-size: 1rem;
+            opacity: 0.95;
+        }
+
+        .trainer-controls {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 28px;
+            flex-wrap: wrap;
+        }
+
+        .trainer-select {
+            flex: 1;
+            min-width: 180px;
+            padding: 12px 20px;
+            border: 2px solid var(--gray-light);
+            border-radius: 40px;
+            font-size: 0.9rem;
+            background: white;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .trainer-select:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .trainer-layout {
+            display: grid;
+            grid-template-columns: 1fr 320px;
+            gap: 28px;
+        }
+
+        @media (max-width: 768px) {
+            .trainer-layout {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+        }
+
+        .task-area {
+            background: white;
+            padding: 28px;
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-md);
+        }
+
+        .task-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .task-number {
+            background: var(--primary);
+            color: white;
+            padding: 6px 16px;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 0.85rem;
+        }
+
+        .badge {
+            padding: 6px 16px;
+            border-radius: 40px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .badge-difficulty {
+            background: var(--warning);
+            color: white;
+        }
+
+        .badge-type {
+            background: var(--success);
+            color: white;
+        }
+
+        .badge-status {
+            background: var(--gray);
+            color: white;
+        }
+
+        .badge-status.answered {
+            background: #28a745;
+        }
+
+        .task-text {
+            font-size: 1.1rem;
+            margin-bottom: 24px;
+            line-height: 1.6;
+        }
+
+        .given-data {
+            background: linear-gradient(135deg, #e8f4f8, #d4eaf0);
+            padding: 20px;
+            border-radius: var(--radius-sm);
+            margin: 20px 0;
+            border-left: 4px solid var(--alloy);
+        }
+
+        .given-data h4 {
+            color: var(--alloy);
+            margin-bottom: 14px;
+            font-size: 1rem;
+        }
+
+        .given-item {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 10px;
+            padding: 8px 12px;
+            background: rgba(255,255,255,0.8);
+            border-radius: var(--radius-sm);
+        }
+
+        .given-label {
+            font-weight: 600;
+            min-width: 120px;
+            font-size: 0.9rem;
+            color: var(--secondary);
+        }
+
+        .math-expression {
+            font-family: 'Courier New', monospace;
+            font-size: 1.2rem;
+            text-align: center;
+            padding: 18px;
+            background: var(--gray-light);
+            border-radius: var(--radius-sm);
+            margin: 20px 0;
+            border: 1px solid #dee2e6;
+            overflow-x: auto;
+        }
+
+        .quick-input-buttons {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin: 20px 0;
+        }
+
+        .quick-btn {
+            padding: 8px 16px;
+            background: var(--gray-light);
+            border: 1px solid #dee2e6;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            font-family: monospace;
+            font-size: 0.9rem;
+            transition: var(--transition);
+        }
+
+        .quick-btn:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .answer-input {
+            width: 100%;
+            padding: 14px 18px;
+            border: 2px solid var(--gray-light);
+            border-radius: var(--radius-sm);
+            font-size: 1rem;
+            margin-bottom: 16px;
+            font-family: monospace;
+            transition: var(--transition);
+        }
+
+        .answer-input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.1);
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 16px;
+            margin-top: 16px;
+            flex-wrap: wrap;
+        }
+
+        .action-buttons .btn {
+            flex: 1;
+            justify-content: center;
+        }
+
+        .result {
+            margin-top: 20px;
+            padding: 16px;
+            border-radius: var(--radius-sm);
+            display: none;
+        }
+
+        .result.correct {
+            background: linear-gradient(135deg, #d4edda, #c3e6cb);
+            color: #155724;
+            display: block;
+        }
+
+        .result.incorrect {
+            background: linear-gradient(135deg, #f8d7da, #f5c6cb);
+            color: #721c24;
+            display: block;
+        }
+
+        .result.warning {
+            background: linear-gradient(135deg, #fff3cd, #ffeeba);
+            color: #856404;
+            display: block;
+        }
+
+        .solution-area {
+            margin-top: 24px;
+            padding: 20px;
+            background: linear-gradient(135deg, #e8f4f8, #d4eaf0);
+            border-radius: var(--radius-sm);
+            border-left: 4px solid var(--success);
+            display: none;
+        }
+
+        .solution-area.show {
+            display: block;
+        }
+
+        .solution-steps {
+            margin-top: 12px;
+            padding-left: 24px;
+        }
+
+        .solution-steps li {
+            margin-bottom: 8px;
+        }
+
+        /* Сайдбар */
+        .sidebar {
+            background: white;
+            border-radius: var(--radius-md);
+            padding: 24px;
+            box-shadow: var(--shadow-md);
+            height: fit-content;
+        }
+
+        .sidebar h3 {
+            color: var(--primary);
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid var(--accent);
+            font-size: 1.2rem;
+        }
+
+        .progress-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin-bottom: 28px;
+            padding: 16px;
+            background: linear-gradient(135deg, var(--gray-light), #fff);
+            border-radius: var(--radius-sm);
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .stat-label {
+            font-size: 0.7rem;
+            color: var(--gray);
+            margin-top: 4px;
+        }
+
+        .progress-bar-container {
+            margin-bottom: 20px;
+        }
+
+        .progress-bar-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 6px;
+            font-size: 0.85rem;
+        }
+
+        .progress-bar {
+            height: 8px;
+            background: var(--gray-light);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            width: 0%;
+            transition: width 0.5s ease;
+            border-radius: 4px;
+        }
+
+        /* О проекте */
+        .about-content {
+            background: white;
+            padding: 40px;
+            border-radius: var(--radius-lg);
+            max-width: 800px;
+            margin: 40px auto;
+            text-align: center;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .about-content h2 {
+            color: var(--primary);
+            margin-bottom: 24px;
+            font-size: 2rem;
+        }
+
+        .features-list {
+            text-align: left;
+            margin: 28px 0;
+            padding-left: 28px;
+            list-style: none;
+        }
+
+        .features-list li {
+            margin-bottom: 12px;
+            padding-left: 28px;
+            position: relative;
+        }
+
+        .features-list li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--success);
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+
+        /* Футер */
+        .footer {
+            background: var(--dark);
+            color: white;
+            padding: 40px 24px;
+            margin-top: 60px;
+        }
+
+        .footer-content {
+            max-width: 1280px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+        }
+
+        .footer-section h4 {
+            margin-bottom: 16px;
+            font-size: 1rem;
+            color: var(--success);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+            opacity: 0.7;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .footer-links a:hover {
+            opacity: 1;
+            color: var(--success);
+        }
+
+        /* Адаптив */
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 16px;
+            }
+            
+            .hero {
+                padding: 40px 20px;
+                margin: 20px 0 32px;
+            }
+            
+            .task-area {
+                padding: 20px;
+            }
+            
+            .sidebar {
+                padding: 20px;
+            }
+            
+            .theory-header {
+                padding: 24px 20px;
+            }
+            
+            .theory-nav {
+                padding: 16px 16px 0 16px;
+            }
+            
+            .theory-tab {
+                padding: 8px 16px;
+                font-size: 0.8rem;
+            }
+            
+            .theory-content {
+                padding: 20px;
+            }
+            
+            .about-content {
+                padding: 28px 20px;
+                margin: 30px 16px;
+            }
+            
+            .nav-container {
+                flex-direction: column;
+                padding: 12px 16px;
+            }
+            
+            .nav-links {
+                justify-content: center;
+            }
+            
+            .nav-links a {
+                padding: 6px 16px;
+                font-size: 0.85rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .task-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .given-item {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .given-label {
+                min-width: auto;
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+            }
+            
+            .action-buttons .btn {
+                width: 100%;
+            }
+            
+            .timer-value {
+                font-size: 1.6rem;
+                letter-spacing: 2px;
+            }
+            
+            .theory-tab {
+                padding: 6px 12px;
+                font-size: 0.75rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo" onclick="showPage('home')">
+                <span class="logo-icon">🧮</span>
+                <span>Алгебра 7 класс</span>
+            </div>
+            <ul class="nav-links">
+                <li><a onclick="showPage('home')" class="active">Главная</a></li>
+                <li><a onclick="showPage('theory')">Теория</a></li>
+                <li><a onclick="showPage('trainer')">Тренажер</a></li>
+                <li><a onclick="showPage('about')">О проекте</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- СТРАНИЦА: ГЛАВНАЯ -->
+    <div id="home" class="page active">
+        <div class="container">
+            <div class="hero">
+                <h1>4 темы по алгебре 7 класс</h1>
+                <p>Формулы сокращенного умножения, сплавы и металлы, уравнения, многочлены — изучай и тренируйся!</p>
+                <div class="cta-buttons">
+                    <button class="btn btn-primary" onclick="showPage('theory')">📚 Изучить теорию</button>
+                    <button class="btn btn-secondary" onclick="showPage('trainer')">🎯 Начать тренировку</button>
+                </div>
+            </div>
+
+            <div class="topics-grid">
+                <div class="topic-card" onclick="showPage('theory')">
+                    <div class="topic-icon">📐 (a±b)²</div>
+                    <h3>Формулы сокращенного умножения</h3>
+                    <p>Квадрат суммы и разности, разность квадратов, куб суммы и разности</p>
+                </div>
+                <div class="topic-card" onclick="showPage('theory')">
+                    <div class="topic-icon">⚗️</div>
+                    <h3>Сплавы и металлы</h3>
+                    <p>Задачи на проценты и смеси, концентрация веществ</p>
+                </div>
+                <div class="topic-card" onclick="showPage('theory')">
+                    <div class="topic-icon">📊 ax=b</div>
+                    <h3>Уравнения</h3>
+                    <p>Линейные уравнения, уравнения с параметрами, текстовые задачи</p>
+                </div>
+                <div class="topic-card" onclick="showPage('theory')">
+                    <div class="topic-icon">🔢 P(x)</div>
+                    <h3>Многочлены</h3>
+                    <p>Сложение, вычитание, умножение, разложение на множители</p>
+                </div>
+            </div>
+
+            <div class="reset-timer">
+                <h3>⏳ Баллы дня сбрасываются через:</h3>
+                <div class="timer-value" id="resetTimer">--:--:--</div>
+                <div class="timezone-badge">🇷🇺 Московское время (МСК)</div>
+                <p style="font-size: 0.8rem; margin-top: 12px;">Сброс каждый день в 00:00 по МСК</p>
+            </div>
+
+            <div class="tip">
+                <h4>📝 Как вводить ответы?</h4>
+                <p>• <strong>x^2</strong> или <strong>x²</strong> — квадрат числа</p>
+                <p>• <strong>(x+2)(x-3)</strong> — произведение многочленов</p>
+                <p>• <strong>4.5</strong> или <strong>9/2</strong> — десятичные и обыкновенные дроби</p>
+                <p>• <strong>24 кг</strong> — ответы с единицами измерения</p>
+                <p style="margin-top: 8px;">💡 Система понимает разные форматы записи!</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- СТРАНИЦА: ТЕОРИЯ -->
+    <div id="theory" class="page">
+        <div class="container">
+            <div class="theory-container">
+                <div class="theory-header">
+                    <div class="page-header-icon">📚</div>
+                    <h2>Теория по 4 темам</h2>
+                    <p>Изучи основные формулы и правила алгебры 7 класса</p>
+                </div>
+
+                <div class="theory-nav">
+                    <button class="theory-tab active" onclick="showTheoryTab('fsu')">📐 ФСУ</button>
+                    <button class="theory-tab" onclick="showTheoryTab('alloys')">⚗️ Сплавы и металлы</button>
+                    <button class="theory-tab" onclick="showTheoryTab('equations')">📊 Уравнения</button>
+                    <button class="theory-tab" onclick="showTheoryTab('polynomials')">🔢 Многочлены</button>
+                </div>
+
+                <div class="theory-content">
+                    <!-- ФСУ -->
+                    <div id="fsu-tab" class="theory-section active">
+                        <h3>Формулы сокращенного умножения</h3>
+                        <p>Формулы сокращенного умножения (ФСУ) — это математические тождества, которые позволяют быстро выполнять умножение многочленов и раскладывать их на множители.</p>
+                        
+                        <div class="formula-grid">
+                            <div class="formula-card">(a + b)² = a² + 2ab + b²</div>
+                            <div class="formula-card">(a - b)² = a² - 2ab + b²</div>
+                            <div class="formula-card">a² - b² = (a - b)(a + b)</div>
+                            <div class="formula-card">(a + b)³ = a³ + 3a²b + 3ab² + b³</div>
+                            <div class="formula-card">(a - b)³ = a³ - 3a²b + 3ab² - b³</div>
+                        </div>
+
+                        <div class="example">
+                            <h4>📌 Примеры:</h4>
+                            <p><strong>(2x + 3)²</strong> = (2x)² + 2·2x·3 + 3² = <strong>4x² + 12x + 9</strong></p>
+                            <p><strong>(5x - 2)²</strong> = (5x)² - 2·5x·2 + 2² = <strong>25x² - 20x + 4</strong></p>
+                            <p><strong>9x² - 16</strong> = (3x)² - 4² = <strong>(3x - 4)(3x + 4)</strong></p>
+                        </div>
+
+                        <div class="info-box">
+                            <strong>💡 Запомните:</strong> Формулы сокращенного умножения помогают быстро раскрывать скобки и раскладывать на множители. Это основа для решения многих уравнений и упрощения выражений!
+                        </div>
+                    </div>
+
+                    <!-- Сплавы -->
+                    <div id="alloys-tab" class="theory-section">
+                        <h3>Задачи на сплавы и смеси</h3>
+                        <p>Задачи на сплавы и смеси — это задачи на проценты, где нужно найти массу вещества, концентрацию или массу раствора.</p>
+                        
+                        <div class="formula">
+                            <strong>Основная формула:</strong><br>
+                            масса вещества = масса смеси × концентрация / 100
+                        </div>
+
+                        <div class="example">
+                            <h4>📌 Пример 1: Смешивание растворов</h4>
+                            <p><strong>Условие:</strong> Смешали 40 кг 12% раствора соли и 20% раствор. Получили 15% раствор. Сколько добавили 20% раствора?</p>
+                            <p><strong>Решение:</strong></p>
+                            <p>1. Масса соли в 1-м растворе: 40 × 0.12 = 4.8 кг</p>
+                            <p>2. Пусть x кг — масса 2-го раствора. Масса соли в нем: 0.2x кг</p>
+                            <p>3. Уравнение: 4.8 + 0.2x = 0.15(40 + x)</p>
+                            <p>4. 4.8 + 0.2x = 6 + 0.15x → 0.05x = 1.2 → x = <strong>24 кг</strong></p>
+                        </div>
+
+                        <div class="example">
+                            <h4>📌 Пример 2: Выпаривание</h4>
+                            <p><strong>Условие:</strong> Из 50 кг 8% раствора выпарили воду и получили 20% раствор. Сколько воды выпарили?</p>
+                            <p><strong>Решение:</strong></p>
+                            <p>1. Масса соли: 50 × 0.08 = 4 кг (постоянна)</p>
+                            <p>2. Масса нового раствора: 4 / 0.20 = 20 кг</p>
+                            <p>3. Выпарили воды: 50 - 20 = <strong>30 кг</strong></p>
+                        </div>
+
+                        <div class="info-box">
+                            <strong>💡 Совет:</strong> В задачах на сплавы всегда определяйте, что остается постоянным (обычно масса чистого вещества). Составляйте уравнение, где слева и справа — масса вещества.
+                        </div>
+                    </div>
+
+                    <!-- Уравнения -->
+                    <div id="equations-tab" class="theory-section">
+                        <h3>Линейные уравнения</h3>
+                        <p>Линейное уравнение — это уравнение вида ax + b = 0, где a ≠ 0. Решение линейного уравнения сводится к нахождению значения переменной x.</p>
+                        
+                        <div class="formula">
+                            <strong>Алгоритм решения:</strong><br>
+                            1. Раскрыть скобки<br>
+                            2. Перенести переменные в левую часть, числа — в правую<br>
+                            3. Привести подобные слагаемые<br>
+                            4. Разделить обе части на коэффициент при переменной
+                        </div>
+
+                        <div class="example">
+                            <h4>📌 Пример 1: Простое уравнение</h4>
+                            <p><strong>5x - 12 = 3x + 4</strong></p>
+                            <p>5x - 3x = 4 + 12</p>
+                            <p>2x = 16</p>
+                            <p>x = <strong>8</strong></p>
+                        </div>
+
+                        <div class="example">
+                            <h4>📌 Пример 2: Уравнение со скобками</h4>
+                            <p><strong>3(x - 2) = x + 3</strong></p>
+                            <p>3x - 6 = x + 3</p>
+                            <p>3x - x = 3 + 6</p>
+                            <p>2x = 9</p>
+                            <p>x = <strong>4.5</strong></p>
+                        </div>
+
+                        <div class="info-box">
+                            <strong>💡 Запомните:</strong> При переносе слагаемых из одной части уравнения в другую знак меняется на противоположный!
+                        </div>
+                    </div>
+
+                    <!-- Многочлены -->
+                    <div id="polynomials-tab" class="theory-section">
+                        <h3>Многочлены</h3>
+                        <p><strong>Многочлен</strong> (полином) — это сумма одночленов. Пример: 3x² - 2x + 5</p>
+                        
+                        <div class="example">
+                            <h4>📌 Сложение многочленов</h4>
+                            <p><strong>(3x² + 2x - 5) + (x² - 4x + 3)</strong></p>
+                            <p>= (3+1)x² + (2-4)x + (-5+3)</p>
+                            <p>= <strong>4x² - 2x - 2</strong></p>
+                        </div>
+
+                        <div class="example">
+                            <h4>📌 Вычитание многочленов</h4>
+                            <p><strong>(5x² - 3x + 2) - (2x² + x - 4)</strong></p>
+                            <p>= 5x² - 3x + 2 - 2x² - x + 4</p>
+                            <p>= <strong>3x² - 4x + 6</strong></p>
+                        </div>
+
+                        <div class="example">
+                            <h4>📌 Умножение многочленов</h4>
+                            <p><strong>(x + 2)(x - 3)</strong></p>
+                            <p>= x·x + x·(-3) + 2·x + 2·(-3)</p>
+                            <p>= x² - 3x + 2x - 6</p>
+                            <p>= <strong>x² - x - 6</strong></p>
+                        </div>
+
+                        <div class="info-box">
+                            <strong>💡 Запомните:</strong> При сложении и вычитании многочленов складываются/вычитаются только коэффициенты при одинаковых степенях. При умножении — каждый член первого многочлена умножается на каждый член второго.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- СТРАНИЦА: ТРЕНАЖЕР -->
+    <div id="trainer" class="page">
+        <div class="container">
+            <div class="trainer-container">
+                <div class="trainer-header">
+                    <div class="page-header-icon">🎯</div>
+                    <h2>Тренажер по 4 темам</h2>
+                    <p>Выбери тему, уровень сложности и решай задачи. За правильные ответы начисляются баллы!</p>
+                </div>
+
+                <div class="trainer-controls">
+                    <select class="trainer-select" id="topicSelect">
+                        <option value="fsu">📐 Формулы сокращенного умножения</option>
+                        <option value="alloys">⚗️ Сплавы и металлы</option>
+                        <option value="equations">📊 Уравнения</option>
+                        <option value="polynomials">🔢 Многочлены</option>
+                    </select>
+                    <select class="trainer-select" id="difficultySelect">
+                        <option value="easy">🌱 Легкий уровень (+3 балла)</option>
+                        <option value="medium" selected>⚡ Средний уровень (+5 баллов)</option>
+                        <option value="hard">🔥 Сложный уровень (+8 баллов)</option>
+                    </select>
+                    <button class="btn btn-primary" onclick="generateTask()">🎲 Новая задача</button>
+                </div>
+
+                <div class="trainer-layout">
+                    <div class="task-area">
+                        <div class="task-header">
+                            <span class="task-number">📌 Задача #<span id="taskNumber">1</span></span>
+                            <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+                                <span class="badge badge-difficulty" id="taskDifficulty">Средняя</span>
+                                <span class="badge badge-type" id="taskType">Стандартная</span>
+                                <span class="badge badge-status" id="taskStatus">Не решена</span>
+                            </div>
+                        </div>
+                        <div class="task-text" id="taskText">Нажмите кнопку "Новая задача"</div>
+                        <div id="givenDataContainer" style="display: none;"></div>
+                        <div class="math-expression" id="mathExpression">Ожидание задачи...</div>
+
+                        <div class="quick-input-buttons">
+                            <button class="quick-btn" onclick="insertSymbol('x²')">x²</button>
+                            <button class="quick-btn" onclick="insertSymbol('x³')">x³</button>
+                            <button class="quick-btn" onclick="insertSymbol('^')">^</button>
+                            <button class="quick-btn" onclick="insertSymbol('(')">(</button>
+                            <button class="quick-btn" onclick="insertSymbol(')')">)</button>
+                            <button class="quick-btn" onclick="insertSymbol('+')">+</button>
+                            <button class="quick-btn" onclick="insertSymbol('-')">-</button>
+                            <button class="quick-btn" onclick="insertSymbol('/')">/</button>
+                        </div>
+
+                        <div class="answer-area">
+                            <input type="text" class="answer-input" id="answerInput" placeholder="Введите ответ..." onkeypress="handleEnter(event)">
+                            <div class="action-buttons">
+                                <button class="btn btn-success" onclick="checkAnswer()">✅ Проверить ответ</button>
+                                <button class="btn btn-primary" onclick="showSolution()" disabled>📖 Показать решение</button>
+                            </div>
+                            <div class="result" id="resultMessage"></div>
+                            <div class="solution-area" id="solutionArea">
+                                <h4>📝 Решение:</h4>
+                                <div id="solutionText"></div>
+                                <ol class="solution-steps" id="solutionSteps"></ol>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="sidebar">
+                        <div class="progress-stats">
+                            <div class="stat-item">
+                                <div class="stat-value" id="totalTasks">0</div>
+                                <div class="stat-label">Всего задач</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-value" id="dailyScore">0</div>
+                                <div class="stat-label">Баллы дня</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-value" id="streak">0</div>
+                                <div class="stat-label">🔥 Серия</div>
+                            </div>
+                        </div>
+
+                        <h3>📊 Прогресс по темам</h3>
+                        <div class="progress-bar-container">
+                            <div class="progress-bar-header"><span>📐 ФСУ</span><span id="fsuStat">0</span> из 20</div>
+                            <div class="progress-bar"><div class="progress-fill" id="fsuProgress" style="width: 0%; background: var(--primary);"></div></div>
+                        </div>
+                        <div class="progress-bar-container">
+                            <div class="progress-bar-header"><span>⚗️ Сплавы</span><span id="alloysStat">0</span> из 15</div>
+                            <div class="progress-bar"><div class="progress-fill" id="alloysProgress" style="width: 0%; background: var(--success);"></div></div>
+                        </div>
+                        <div class="progress-bar-container">
+                            <div class="progress-bar-header"><span>📊 Уравнения</span><span id="equationsStat">0</span> из 25</div>
+                            <div class="progress-bar"><div class="progress-fill" id="equationsProgress" style="width: 0%; background: var(--accent);"></div></div>
+                        </div>
+                        <div class="progress-bar-container">
+                            <div class="progress-bar-header"><span>🔢 Многочлены</span><span id="polynomialsStat">0</span> из 20</div>
+                            <div class="progress-bar"><div class="progress-fill" id="polynomialsProgress" style="width: 0%; background: var(--warning);"></div></div>
+                        </div>
+
+                        <div class="reset-timer" style="margin-top: 24px; background: linear-gradient(135deg, #ff6b6b, #ff8e8e);">
+                            <h4 style="font-size: 0.9rem;">⏳ Сброс через:</h4>
+                            <div class="timer-value" id="sidebarTimer" style="font-size: 1.4rem;">--:--:--</div>
+                            <div class="timezone-badge">🇷🇺 МСК</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- СТРАНИЦА: О ПРОЕКТЕ -->
+    <div id="about" class="page">
+        <div class="container">
+            <div class="about-content">
+                <h2>📖 О проекте</h2>
+                <p><strong>Алгебра 7 класс</strong> — интерактивный тренажер для изучения 4 основных тем алгебры.</p>
+                
+                <ul class="features-list">
+                    <li><strong>4 темы:</strong> ФСУ, сплавы и металлы, уравнения, многочлены</li>
+                    <li><strong>Более 50 уникальных задач</strong> с разными типами</li>
+                    <li><strong>3 уровня сложности:</strong> легкий (+3), средний (+5), сложный (+8)</li>
+                    <li><strong>Бонус за серию:</strong> x2 баллов за правильные ответы подряд</li>
+                    <li><strong>Ежедневный сброс</strong> в 00:00 по московскому времени</li>
+                    <li><strong>Адаптивный дизайн:</strong> удобно на ПК, планшете и телефоне</li>
+                </ul>
+                
+                <p style="margin-top: 24px; padding: 16px; background: linear-gradient(135deg, var(--gray-light), #fff); border-radius: var(--radius-sm);">
+                    🎯 <strong>Цель:</strong> помочь ученикам 7 класса освоить основные темы алгебры через практику и теорию.
+                </p>
+                <p style="margin-top: 16px;">💡 <strong>Совет:</strong> Занимайтесь каждый день, чтобы набирать максимум баллов и улучшать свои навыки!</p>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>🧮 Алгебра 7 класс</h4>
+                <p>ФСУ, сплавы, уравнения, многочлены — учись с удовольствием!</p>
+            </div>
+            <div class="footer-section">
+                <h4>📚 Навигация</h4>
+                <ul class="footer-links">
+                    <li><a onclick="showPage('home')">Главная</a></li>
+                    <li><a onclick="showPage('theory')">Теория</a></li>
+                    <li><a onclick="showPage('trainer')">Тренажер</a></li>
+                    <li><a onclick="showPage('about')">О проекте</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>💡 Полезное</h4>
+                <ul class="footer-links">
+                    <li><a onclick="showPage('trainer')">Начать тренировку</a></li>
+                    <li><a onclick="showPage('theory')">Изучить теорию</a></li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+    // ==================== ПЕРЕМЕННЫЕ ====================
+    let currentTaskData = null;
+    let taskAnswered = false;
+    let resetTimerInterval = null;
+    
+    let stats = {
+        totalTasks: 0,
+        correctAnswers: 0,
+        streak: 0,
+        byTopic: {
+            fsu: { solved: 0, total: 20 },
+            alloys: { solved: 0, total: 15 },
+            equations: { solved: 0, total: 25 },
+            polynomials: { solved: 0, total: 20 }
+        },
+        score: 0,
+        lastResetDate: null
+    };
+    
+    // ==================== НАВИГАЦИЯ ====================
+    function showPage(pageId) {
+        document.querySelectorAll('.page').forEach(page => page.classList.remove('active'));
+        document.getElementById(pageId).classList.add('active');
+        
+        document.querySelectorAll('.nav-links a').forEach(link => link.classList.remove('active'));
+        event.target.classList.add('active');
+        
+        if (pageId === 'trainer' && !currentTaskData) generateTask();
+        updateSidebarTimer();
+    }
+    
+    function updateSidebarTimer() {
+        const timeToReset = getTimeToReset();
+        const hours = Math.floor(timeToReset / (1000 * 60 * 60));
+        const minutes = Math.floor((timeToReset % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((timeToReset % (1000 * 60)) / 1000);
+        const timeString = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+        const sidebarTimer = document.getElementById('sidebarTimer');
+        if (sidebarTimer) sidebarTimer.textContent = timeString;
+    }
+    
+    function showTheoryTab(tabId) {
+        document.querySelectorAll('.theory-tab').forEach(t => t.classList.remove('active'));
+        event.target.classList.add('active');
+        document.querySelectorAll('.theory-section').forEach(s => s.classList.remove('active'));
+        document.getElementById(tabId + '-tab').classList.add('active');
+    }
+    
+    // ==================== ТАЙМЕР ====================
+    function getMoscowDate() {
+        const now = new Date();
+        const moscowTime = new Date(now.getTime() + (3 * 60 * 60 * 1000));
+        return moscowTime.toISOString().split('T')[0];
+    }
+    
+    function getTimeToReset() {
+        const now = new Date();
+        const utcHours = now.getUTCHours();
+        const nextReset = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate(), 21, 0, 0, 0));
+        if (utcHours >= 21) nextReset.setUTCDate(nextReset.getUTCDate() + 1);
+        return nextReset - now;
+    }
+    
+    function startResetTimer() {
+        function updateTimer() {
+            const timeToReset = getTimeToReset();
+            if (timeToReset <= 0) resetStats();
+            const hours = Math.floor(timeToReset / (1000 * 60 * 60));
+            const minutes = Math.floor((timeToReset % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((timeToReset % (1000 * 60)) / 1000);
+            const timeString = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+            const timer = document.getElementById('resetTimer');
+            if (timer) timer.textContent = timeString;
+            updateSidebarTimer();
+        }
+        updateTimer();
+        if (resetTimerInterval) clearInterval(resetTimerInterval);
+        resetTimerInterval = setInterval(updateTimer, 1000);
+    }
+    
+    function resetStats() {
+        const today = getMoscowDate();
+        stats = {
+            totalTasks: 0,
+            correctAnswers: 0,
+            streak: 0,
+            byTopic: {
+                fsu: { solved: 0, total: 20 },
+                alloys: { solved: 0, total: 15 },
+                equations: { solved: 0, total: 25 },
+                polynomials: { solved: 0, total: 20 }
+            },
+            score: 0,
+            lastResetDate: today
+        };
+        saveStats();
+        updateStatsDisplay();
+    }
+    
+    function saveStats() {
+        localStorage.setItem('math4_stats', JSON.stringify(stats));
+        localStorage.setItem('math4_reset_date', getMoscowDate());
+    }
+    
+    function loadStats() {
+        const saved = localStorage.getItem('math4_stats');
+        const savedDate = localStorage.getItem('math4_reset_date');
+        const today = getMoscowDate();
+        if (savedDate !== today) resetStats();
+        else if (saved) stats = JSON.parse(saved);
+        updateStatsDisplay();
+    }
+    
+    // ==================== ГЕНЕРАЦИЯ ЗАДАЧ ====================
+    function generateTask() {
+        const topic = document.getElementById('topicSelect').value;
+        const difficulty = document.getElementById('difficultySelect').value;
+        
+        taskAnswered = false;
+        document.getElementById('resultMessage').style.display = 'none';
+        document.getElementById('solutionArea').classList.remove('show');
+        document.getElementById('answerInput').value = '';
+        document.getElementById('answerInput').disabled = false;
+        document.querySelector('.btn-success').disabled = false;
+        document.querySelector('.btn-primary').disabled = true;
+        document.getElementById('taskStatus').textContent = 'Не решена';
+        document.getElementById('taskStatus').className = 'badge badge-status';
+        document.getElementById('givenDataContainer').style.display = 'none';
+        
+        let taskData;
+        if (topic === 'fsu') taskData = generateFSUTask(difficulty);
+        else if (topic === 'alloys') taskData = generateAlloysTask(difficulty);
+        else if (topic === 'equations') taskData = generateEquationTask(difficulty);
+        else taskData = generatePolynomialTask(difficulty);
+        
+        document.getElementById('taskText').textContent = taskData.task;
+        document.getElementById('taskNumber').textContent = stats.totalTasks + 1;
+        document.getElementById('taskDifficulty').textContent = difficulty === 'easy' ? 'Легкая' : difficulty === 'medium' ? 'Средняя' : 'Сложная';
+        document.getElementById('taskType').textContent = taskData.type;
+        
+        if (taskData.givenData) {
+            document.getElementById('givenDataContainer').innerHTML = taskData.givenData;
+            document.getElementById('givenDataContainer').style.display = 'block';
+        }
+        
+        if (topic === 'alloys') {
+            document.getElementById('mathExpression').style.display = 'none';
+        } else {
+            document.getElementById('mathExpression').style.display = 'block';
+            document.getElementById('mathExpression').textContent = taskData.expression;
+        }
+        
+        currentTaskData = {
+            answer: taskData.answer,
+            solution: taskData.solution,
+            topic: topic,
+            difficulty: difficulty,
+            steps: taskData.steps || []
+        };
+    }
+    
+    function generateFSUTask(difficulty) {
+        const a = Math.floor(Math.random() * 4) + 1;
+        const b = Math.floor(Math.random() * 4) + 1;
+        if (difficulty === 'easy') {
+            return {
+                task: 'Раскройте скобки:',
+                expression: `(${a}x + ${b})²`,
+                answer: `${a*a}x² + ${2*a*b}x + ${b*b}`,
+                solution: `(${a}x)² = ${a*a}x²\n2·${a}x·${b} = ${2*a*b}x\n${b}² = ${b*b}\nОтвет: ${a*a}x² + ${2*a*b}x + ${b*b}`,
+                type: 'Квадрат суммы',
+                steps: [`(${a}x)² = ${a*a}x²`, `2·${a}x·${b} = ${2*a*b}x`, `${b}² = ${b*b}`]
+            };
+        } else if (difficulty === 'medium') {
+            return {
+                task: 'Раскройте скобки:',
+                expression: `(${a}x - ${b})²`,
+                answer: `${a*a}x² - ${2*a*b}x + ${b*b}`,
+                solution: `(${a}x)² = ${a*a}x²\n-2·${a}x·${b} = -${2*a*b}x\n${b}² = ${b*b}\nОтвет: ${a*a}x² - ${2*a*b}x + ${b*b}`,
+                type: 'Квадрат разности',
+                steps: [`(${a}x)² = ${a*a}x²`, `-2·${a}x·${b} = -${2*a*b}x`, `${b}² = ${b*b}`]
+            };
+        } else {
+            return {
+                task: 'Разложите на множители:',
+                expression: `${a*a}x² - ${b*b}`,
+                answer: `(${a}x - ${b})(${a}x + ${b})`,
+                solution: `Используем формулу a² - b² = (a-b)(a+b):\n(${a}x)² - ${b}² = (${a}x - ${b})(${a}x + ${b})`,
+                type: 'Разность квадратов',
+                steps: [`(${a}x)² - ${b}²`, `= (${a}x - ${b})(${a}x + ${b})`]
+            };
+        }
+    }
+    
+    function generateAlloysTask(difficulty) {
+        const m1 = Math.floor(Math.random() * 20) + 10;
+        const p1 = Math.floor(Math.random() * 15) + 5;
+        const p2 = Math.floor(Math.random() * 20) + 40;
+        let finalP = Math.floor((p1 + p2) / 2);
+        if (finalP <= p1) finalP = p1 + 2;
+        if (finalP >= p2) finalP = p2 - 2;
+        const answer = Math.round(((finalP - p1) / (p2 - finalP) * m1) * 100) / 100;
+        
+        return {
+            task: 'Сколько килограммов второго раствора нужно добавить?',
+            expression: '',
+            answer: answer + ' кг',
+            solution: `1. Масса вещества в первом растворе: ${m1}·${p1}% = ${(m1*p1/100).toFixed(2)} кг\n2. Пусть x кг - масса второго раствора. Масса вещества в нем: ${p2/100}x кг\n3. Уравнение: ${(m1*p1/100).toFixed(2)} + ${p2/100}x = ${finalP/100}(${m1} + x)\n4. Решаем: ${(p2/100 - finalP/100).toFixed(3)}x = ${((finalP*m1 - m1*p1)/100).toFixed(2)}\n5. x = ${answer} кг`,
+            type: 'Смешивание',
+            givenData: `<div class="given-data"><h4>📋 Дано:</h4>
+                <div class="given-item"><span class="given-label">1-й раствор:</span><span class="given-value">${m1} кг, концентрация ${p1}%</span></div>
+                <div class="given-item"><span class="given-label">2-й раствор:</span><span class="given-value">концентрация ${p2}%</span></div>
+                <div class="given-item"><span class="given-label">Требуемый раствор:</span><span class="given-value">концентрация ${finalP}%</span></div>
+                <div class="given-item"><span class="given-label">Найти:</span><span class="given-value">массу второго раствора (x кг)</span></div></div>`,
+            steps: [`Масса в-ва в 1-м: ${(m1*p1/100).toFixed(2)} кг`, `Уравнение: ${(m1*p1/100).toFixed(2)} + ${p2/100}x = ${finalP/100}(${m1} + x)`, `x = ${answer} кг`]
+        };
+    }
+    
+    function generateEquationTask(difficulty) {
+        const a = Math.floor(Math.random() * 4) + 2;
+        const b = Math.floor(Math.random() * 6) + 2;
+        const c = Math.floor(Math.random() * 8) + 3;
+        const answer = (a * b + c) / (a - 1);
+        const rounded = Math.round(answer * 100) / 100;
+        
+        return {
+            task: 'Решите уравнение:',
+            expression: `${a}(x - ${b}) = 1(x + ${c})`,
+            answer: rounded.toString(),
+            solution: `${a}x - ${a*b} = x + ${c}\n${a}x - x = ${c} + ${a*b}\n${a-1}x = ${a*b + c}\nx = ${rounded}`,
+            type: 'Линейное уравнение',
+            steps: [`${a}x - ${a*b} = x + ${c}`, `${a}x - x = ${c} + ${a*b}`, `${a-1}x = ${a*b + c}`, `x = ${rounded}`]
+        };
+    }
+    
+    function generatePolynomialTask(difficulty) {
+        const a = Math.floor(Math.random() * 3) + 1;
+        const b = Math.floor(Math.random() * 4) + 1;
+        const c = Math.floor(Math.random() * 3) + 1;
+        const d = Math.floor(Math.random() * 4) + 1;
+        return {
+            task: 'Умножьте многочлены:',
+            expression: `(${a}x + ${b})(${c}x + ${d})`,
+            answer: `${a*c}x² + ${a*d + b*c}x + ${b*d}`,
+            solution: `${a}x·${c}x = ${a*c}x²\n${a}x·${d} = ${a*d}x\n${b}·${c}x = ${b*c}x\n${b}·${d} = ${b*d}\nОтвет: ${a*c}x² + ${a*d + b*c}x + ${b*d}`,
+            type: 'Умножение',
+            steps: [`${a}x·${c}x = ${a*c}x²`, `${a}x·${d} = ${a*d}x`, `${b}·${c}x = ${b*c}x`, `${b}·${d} = ${b*d}`]
+        };
+    }
+    
+    // ==================== ПРОВЕРКА ====================
+    function checkAnswer() {
+        if (!currentTaskData || taskAnswered) {
+            document.getElementById('resultMessage').textContent = '⚠️ Сгенерируйте новую задачу!';
+            document.getElementById('resultMessage').className = 'result warning';
+            document.getElementById('resultMessage').style.display = 'block';
+            return;
+        }
+        
+        const userAnswer = document.getElementById('answerInput').value.trim();
+        if (!userAnswer) {
+            document.getElementById('resultMessage').textContent = '⚠️ Введите ответ!';
+            document.getElementById('resultMessage').className = 'result warning';
+            document.getElementById('resultMessage').style.display = 'block';
+            return;
+        }
+        
+        const normalize = s => s.replace(/\s+/g, '').replace(/,/g, '.').replace(/кг|%|км/g, '').toLowerCase();
+        const userNum = parseFloat(normalize(userAnswer));
+        const correctNum = parseFloat(normalize(currentTaskData.answer));
+        const isCorrect = !isNaN(userNum) && !isNaN(correctNum) && Math.abs(userNum - correctNum) < 0.01;
+        
+        taskAnswered = true;
+        document.getElementById('answerInput').disabled = true;
+        document.querySelector('.btn-success').disabled = true;
+        document.querySelector('.btn-primary').disabled = false;
+        document.getElementById('taskStatus').textContent = 'Решена ✓';
+        document.getElementById('taskStatus').classList.add('answered');
+        
+        stats.totalTasks++;
+        
+        if (isCorrect) {
+            stats.correctAnswers++;
+            stats.streak++;
+            let points = currentTaskData.difficulty === 'easy' ? 3 : currentTaskData.difficulty === 'medium' ? 5 : 8;
+            const multiplier = Math.min(stats.streak, 2);
+            points *= multiplier;
+            stats.score += points;
+            if (stats.byTopic[currentTaskData.topic]) stats.byTopic[currentTaskData.topic].solved++;
+            
+            document.getElementById('resultMessage').textContent = `✅ Правильно! +${points} баллов${stats.streak > 1 ? ` (x${multiplier} за серию!)` : ''}`;
+            document.getElementById('resultMessage').className = 'result correct';
+        } else {
+            stats.streak = 0;
+            document.getElementById('resultMessage').textContent = `❌ Неправильно. Правильный ответ: ${currentTaskData.answer}`;
+            document.getElementById('resultMessage').className = 'result incorrect';
+        }
+        
+        document.getElementById('resultMessage').style.display = 'block';
+        saveStats();
+        updateStatsDisplay();
+    }
+    
+    function showSolution() {
+        if (!currentTaskData) return;
+        document.getElementById('solutionText').textContent = currentTaskData.solution;
+        const stepsList = document.getElementById('solutionSteps');
+        if (currentTaskData.steps) {
+            stepsList.innerHTML = '';
+            currentTaskData.steps.forEach(s => { const li = document.createElement('li'); li.textContent = s; stepsList.appendChild(li); });
+        }
+        document.getElementById('solutionArea').classList.add('show');
+    }
+    
+    function insertSymbol(symbol) {
+        const input = document.getElementById('answerInput');
+        if (input.disabled) return;
+        const start = input.selectionStart;
+        const end = input.selectionEnd;
+        input.value = input.value.substring(0, start) + symbol + input.value.substring(end);
+        input.focus();
+        input.setSelectionRange(start + symbol.length, start + symbol.length);
+    }
+    
+    function handleEnter(e) { if (e.key === 'Enter' && !document.querySelector('.btn-success').disabled) checkAnswer(); }
+    
+    function updateStatsDisplay() {
+        document.getElementById('totalTasks').textContent = stats.totalTasks;
+        document.getElementById('dailyScore').textContent = stats.score;
+        document.getElementById('streak').textContent = stats.streak;
+        document.getElementById('fsuStat').textContent = `${stats.byTopic.fsu.solved}/${stats.byTopic.fsu.total}`;
+        document.getElementById('alloysStat').textContent = `${stats.byTopic.alloys.solved}/${stats.byTopic.alloys.total}`;
+        document.getElementById('equationsStat').textContent = `${stats.byTopic.equations.solved}/${stats.byTopic.equations.total}`;
+        document.getElementById('polynomialsStat').textContent = `${stats.byTopic.polynomials.solved}/${stats.byTopic.polynomials.total}`;
+        document.getElementById('fsuProgress').style.width = (stats.byTopic.fsu.solved / stats.byTopic.fsu.total * 100) + '%';
+        document.getElementById('alloysProgress').style.width = (stats.byTopic.alloys.solved / stats.byTopic.alloys.total * 100) + '%';
+        document.getElementById('equationsProgress').style.width = (stats.byTopic.equations.solved / stats.byTopic.equations.total * 100) + '%';
+        document.getElementById('polynomialsProgress').style.width = (stats.byTopic.polynomials.solved / stats.byTopic.polynomials.total * 100) + '%';
+    }
+    
+    // ==================== ЗАПУСК ====================
+    document.addEventListener('DOMContentLoaded', () => {
+        loadStats();
+        startResetTimer();
+        generateTask();
+        
+        document.querySelectorAll('.topic-card').forEach(card => {
+            card.addEventListener('click', () => showPage('theory'));
+        });
+    });
+    </script>
+</body>
+</html>
